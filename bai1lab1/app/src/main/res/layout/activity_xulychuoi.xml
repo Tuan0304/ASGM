@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".xulychuoi">
+
+    <EditText
+        android:id="@+id/edts"
+        android:layout_centerHorizontal="true"
+        android:layout_width="300dp"
+        android:layout_height="50dp"/>
+    <Button
+        android:id="@+id/tim"
+        android:layout_below="@+id/edts"
+        android:layout_centerHorizontal="true"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="Tìm"/>
+    <EditText
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tim"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:hint="Nhap ky tu can tim"
+        android:id="@+id/charcantim"/>
+
+
+</RelativeLayout>
