@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, xulychuoi.class));
-                Toast.makeText(MainActivity.this, "Halo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "dwqdqwdwq", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
