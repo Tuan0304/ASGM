@@ -28,4 +28,10 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         />
+    <Button
+        android:layout_below="@id/bai3"
+        android:layout_width="wrap_content"
+        android:text="dfff"
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>
