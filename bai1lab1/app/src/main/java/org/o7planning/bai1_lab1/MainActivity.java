@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, xulychuoi.class));
                 Toast.makeText(MainActivity.this, "Halo", Toast.LENGTH_SHORT).show();
                 Toast.makeText(MainActivity.this, "gfjtdhjd", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "dwqdwqdqwd", Toast.LENGTH_SHORT).show();
 
             }
         });
