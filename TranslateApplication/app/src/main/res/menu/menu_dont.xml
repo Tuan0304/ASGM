@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <item
+        android:id="@+id/dont_trangchu"
+        android:icon="@drawable/ic_home"
+        android:title="Màn hình chính "/>
+    <item
+        android:id="@+id/dont_tuvung"
+        android:icon="@drawable/ic_dont_stars"
+        android:title="Từ vựng"/>
+    <item
+        android:id="@+id/dont_Loi"
+        android:icon="@drawable/ic_dont_voice"
+        android:title="Bản chép lời đã lưu"/>
+    <item
+        android:id="@+id/dont_Ngoaituyen"
+        android:icon="@drawable/ic_dont_check"
+        android:title="Dịch ngoại tuyến"/>
+    <item
+        android:id="@+id/dont_Caidat"
+        android:icon="@drawable/ic_dont_setting"
+        android:title="Cài đặt"/>
+    <item
+        android:id="@+id/dont_Trogiup"
+        android:icon="@drawable/ic_dont_help"
+        android:title="Trợ giúp"/>
+
+
+</menu>
