@@ -20,7 +20,7 @@ public class Dichvu extends Service {
 
         Bundle b=intent.getBundleExtra("student");
 
-        int StuId=b.getInt("StuId");
+        int StuId = b.getInt("StuId");
         String StuName=b.getString("StuName");
         String Class=b.getString("Class");
 

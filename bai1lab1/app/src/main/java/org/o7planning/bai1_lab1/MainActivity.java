@@ -20,6 +20,51 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         setContentView(R.layout.activity_main);
 
         btnrun=findViewById(R.id.run);
@@ -62,12 +107,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, xulychuoi.class));
-                Toast.makeText(MainActivity.this, "Halo", Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, "gfjtdhjd", Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this,"BlaNla",Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, "aaaaaaaagit ", Toast.LENGTH_SHORT).show();
-                //ffsfsfgit
-                Toast.makeText(MainActivity.this, "Hasagi", Toast.LENGTH_SHORT).show();
+
 
             }
         });
