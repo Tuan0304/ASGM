@@ -1,6 +1,7 @@
 package com.example.translate_application.home;
 
 import android.os.Bundle;
+import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,10 +31,12 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         final String TAG = "MainActivity";
-        final EditText editText = root.findViewById(R.id.editText);
-        final TextView textView = root.findViewById(R.id.textView);
-        Button translateButton = root.findViewById(R.id.button);
+        SpeechRecognizer speechRecognizer;
 
+        final EditText editText = root.findViewById(R.id.editText);
+        final TextView textView = root.findViewById(R.id.result);
+        TextView translateButton = root.findViewById(R.id.button);
+//Tuan-Chuc năng dich chữ:
         translateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +58,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
+//end Chức năng dịch chữ
+
 
         return root;
     }
