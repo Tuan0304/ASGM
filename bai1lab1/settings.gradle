@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name = "bai1-lab1"
