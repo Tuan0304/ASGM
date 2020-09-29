@@ -6,8 +6,9 @@ android {
 
     defaultConfig {
         applicationId "com.example.translate_application"
-        minSdkVersion 16
+        minSdkVersion 18
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
 
