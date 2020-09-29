@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.translate_application.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_wordbook"
+        android:name="com.example.translate_application.wordbook.WordBookFragment"
+        android:label="@string/menu_wordbook"
+        tools:layout="@layout/fragment_wordbook" />
+
+    <fragment
+        android:id="@+id/nav_voice"
+        android:name="com.example.translate_application.voice.VoiceFragment"
+        android:label="@string/menu_voice"
+        tools:layout="@layout/fragment_voice" />
+    <fragment
+        android:id="@+id/nav_offline"
+        android:name="com.example.translate_application.transoffline.OfflineFragment"
+        android:label="@string/menu_offline"
+        tools:layout="@layout/fragment_offline" />
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.example.translate_application.setting.SettingFragment"
+        android:label="@string/menu_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.example.translate_application.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
+</navigation>
