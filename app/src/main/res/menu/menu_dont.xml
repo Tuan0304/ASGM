@@ -2,30 +2,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+
     <item
-        android:id="@+id/dont_trangchu"
+        android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
         android:title="Màn hình chính "/>
     <item
-        android:id="@+id/dont_tuvung"
+        android:id="@+id/nav_wordbook"
         android:icon="@drawable/ic_dont_stars"
         android:title="Từ vựng"/>
     <item
-        android:id="@+id/dont_Loi"
+        android:id="@+id/nav_voice"
         android:icon="@drawable/ic_dont_voice"
         android:title="Bản chép lời đã lưu"/>
     <item
-        android:id="@+id/dont_Ngoaituyen"
+        android:id="@+id/nav_offline"
         android:icon="@drawable/ic_dont_check"
         android:title="Dịch ngoại tuyến"/>
     <item
-        android:id="@+id/dont_Caidat"
+        android:id="@+id/nav_setting"
         android:icon="@drawable/ic_dont_setting"
         android:title="Cài đặt"/>
     <item
-        android:id="@+id/dont_Trogiup"
+        android:id="@+id/nav_help"
         android:icon="@drawable/ic_dont_help"
         android:title="Trợ giúp"/>
+    </group>
 
-
+<!--fggg-->
 </menu>
