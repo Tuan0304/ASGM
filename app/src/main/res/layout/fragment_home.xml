@@ -95,12 +95,14 @@
                     android:background="@android:color/white"
                     android:drawableBottom="@drawable/ic_edit"
                     />
-                <TextView
+                <ImageView
+                    android:id="@+id/voice"
                     android:layout_weight="0.5"
                     android:background="@android:color/white"
                     android:layout_width="0dp"
+                    android:src="@drawable/ic_voiceoff"
                     android:layout_height="match_parent"
-                    android:drawableBottom="@drawable/ic_voice"
+
                     />
 
             </LinearLayout>
@@ -128,7 +130,8 @@
                     android:drawableBottom="@drawable/ic_conversation"
                     />
                 <TextView
-                    android:layout_weight="1"
+                    android:id="@+id/speech"
+                    android:layout_weight="4"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
 

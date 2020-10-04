@@ -1,9 +1,10 @@
 package com.example.translate_application;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
@@ -11,10 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.translate_application.help.HelpFragment;
-import com.example.translate_application.home.HomeFragment;
-import com.example.translate_application.setting.SettingFragment;
-import com.example.translate_application.transoffline.OfflineFragment;
+
 import com.example.translate_application.voice.VoiceFragment;
 import com.example.translate_application.wordbook.WordBookFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -119,11 +117,4 @@ public class MainActivity extends AppCompatActivity  {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_dont, menu);
-//        return true;
-//    }
 }
