@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.translate_application.R;
-import com.example.translate_application.wordbook.WordBookViewModel;
+
 
 public class VoiceFragment extends Fragment {
 

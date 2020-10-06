@@ -90,12 +90,12 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onEndOfSpeech() {
-
+                Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(int i) {
-
+                Toast.makeText(getActivity(), "Lỗi rồi", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -104,6 +104,22 @@ public class HomeFragment extends Fragment {
                 voicebtn.setImageResource(R.drawable.ic_voiceoff);
                 ArrayList<String> data=bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
                 show.setText(data.get(0));
+
+                TranslateAPI translateAPI = new TranslateAPI(
+                        Language.AUTO_DETECT,
+                        Language.VIETNAMESE, data.get(0));
+
+                translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
+                    @Override
+                    public void onSuccess(String translatedText) {
+                        textView.setText(translatedText);
+                    }
+
+                    @Override
+                    public void onFailure(String ErrorText) {
+                        Log.d(TAG, "onFailure: "+ErrorText);
+                    }
+                });
             }
 
             @Override
@@ -130,6 +146,7 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
+        //end-speech to text function
 //Tuan-Chuc năng dich chữ:
         translateButton.setOnClickListener(new View.OnClickListener() {
             @Override
