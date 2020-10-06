@@ -29,6 +29,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 
+import com.example.translate_application.CameraActivity;
 import com.example.translate_application.Language;
 import com.example.translate_application.R;
 import com.example.translate_application.TranslateAPI;
@@ -40,12 +41,22 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     public static final Integer RecordAudioRequestCode=1;
+    TextView camera;
 
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+//        dontcamera
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        camera = root.findViewById(R.id.Camera);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CameraActivity.class));
+            }
+        });
 
         final String TAG = "MainActivity";
 
@@ -196,5 +207,6 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(),"Permission Granted", Toast.LENGTH_SHORT).show();
         }
     }
+//dontcamera
 
 }
