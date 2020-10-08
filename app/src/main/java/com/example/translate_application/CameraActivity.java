@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,20 +40,19 @@ public class CameraActivity extends AppCompatActivity {
         detect=(Button)findViewById(R.id.detect_button);
         txt=(TextView)findViewById(R.id.textView);
 
+
+
     }
     public void capture_function(View view)
     {
         dispatchTakePictureIntent();
         txt.setText("");
-    }
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
+        Toast.makeText(this, "aug", Toast.LENGTH_SHORT).show();
     }
     public void detect_function(View view)
     {
+
+        Toast.makeText(this, "abc", Toast.LENGTH_SHORT).show();
         FirebaseVisionImage firebaseVisionImage=FirebaseVisionImage.fromBitmap(imageBitmap);
         FirebaseVisionTextDetector firebaseVisionTextRecognizer= FirebaseVision.getInstance().getVisionTextDetector();
         firebaseVisionTextRecognizer.detectInImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
@@ -68,14 +68,21 @@ public class CameraActivity extends AppCompatActivity {
         });
     }
 
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,  Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             img.setImageBitmap(imageBitmap);
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void display_text(FirebaseVisionText firebaseVisionText)
