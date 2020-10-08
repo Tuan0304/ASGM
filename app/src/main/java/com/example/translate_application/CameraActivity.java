@@ -42,13 +42,17 @@ public class CameraActivity extends AppCompatActivity {
 
 
 
+
     }
+
+
     public void capture_function(View view)
     {
         dispatchTakePictureIntent();
         txt.setText("");
         Toast.makeText(this, "aug", Toast.LENGTH_SHORT).show();
     }
+
     public void detect_function(View view)
     {
 
@@ -59,6 +63,8 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onSuccess(FirebaseVisionText firebaseVisionText) {
                 display_text(firebaseVisionText);
+
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -97,6 +103,22 @@ public class CameraActivity extends AppCompatActivity {
             for(FirebaseVisionText.Block block: firebaseVisionText.getBlocks())
             {
                 String text=block.getText();
+                TranslateAPI translateAPI = new TranslateAPI(
+                        Language.AUTO_DETECT,
+                        Language.VIETNAMESE, text);
+                final TextView text2=(TextView)findViewById(R.id.textViewrs);
+
+                translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
+                    @Override
+                    public void onSuccess(String translatedText) {
+                        text2.setText(translatedText);
+                    }
+
+                    @Override
+                    public void onFailure(String ErrorText) {
+
+                    }
+                });
                 txt.setText(text);
             }
         }
