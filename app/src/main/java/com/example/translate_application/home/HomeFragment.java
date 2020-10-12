@@ -30,6 +30,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 
 import com.example.translate_application.CameraActivity;
+import com.example.translate_application.CameraScan;
 import com.example.translate_application.Language;
 import com.example.translate_application.R;
 import com.example.translate_application.TranslateAPI;
@@ -54,7 +55,8 @@ public class HomeFragment extends Fragment {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CameraActivity.class));
+                //startActivity(new Intent(getActivity(), CameraActivity.class));
+                startActivity(new Intent(getActivity(), CameraScan.class));
             }
         });
 
