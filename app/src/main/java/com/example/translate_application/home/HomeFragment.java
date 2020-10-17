@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import com.example.translate_application.CameraScan;
 import com.example.translate_application.Language;
 import com.example.translate_application.R;
+import com.example.translate_application.ThemActivity;
 import com.example.translate_application.TranslateAPI;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class HomeFragment extends Fragment {
     public static final Integer RecordAudioRequestCode=1;
     TextView camera;
 
+
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +49,12 @@ public class HomeFragment extends Fragment {
         final String TAG = "MainActivity";
 
         final EditText editText = root.findViewById(R.id.editText);
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ThemActivity.class));
+            }
+        });
         final TextView textView = root.findViewById(R.id.result);
         TextView translateButton = root.findViewById(R.id.button);
         final TextView show=root.findViewById(R.id.speech);
@@ -61,6 +69,7 @@ public class HomeFragment extends Fragment {
             }
         });
         //end camera
+
 
         //speech to text function
         if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
