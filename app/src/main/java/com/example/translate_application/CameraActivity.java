@@ -50,13 +50,11 @@ public class CameraActivity extends AppCompatActivity {
     {
         dispatchTakePictureIntent();
         txt.setText("");
-        Toast.makeText(this, "aug", Toast.LENGTH_SHORT).show();
+
     }
 
     public void detect_function(View view)
     {
-
-        Toast.makeText(this, "abc", Toast.LENGTH_SHORT).show();
         FirebaseVisionImage firebaseVisionImage=FirebaseVisionImage.fromBitmap(imageBitmap);
         FirebaseVisionTextDetector firebaseVisionTextRecognizer= FirebaseVision.getInstance().getVisionTextDetector();
         firebaseVisionTextRecognizer.detectInImage(firebaseVisionImage).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {

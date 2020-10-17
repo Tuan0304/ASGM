@@ -12,6 +12,8 @@ import com.lucem.anb.characterscanner.Scanner;
 import com.lucem.anb.characterscanner.ScannerListener;
 import com.lucem.anb.characterscanner.ScannerView;
 
+
+
 public class CameraScan extends AppCompatActivity {
 
     @Override
