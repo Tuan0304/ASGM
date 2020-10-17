@@ -42,29 +42,31 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-//        dontcamera
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final String TAG = "MainActivity";
+
+        final EditText editText = root.findViewById(R.id.editText);
+        final TextView textView = root.findViewById(R.id.result);
+        TextView translateButton = root.findViewById(R.id.button);
+        final TextView show=root.findViewById(R.id.speech);
+        final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
+
+        //camera
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), CameraScan.class));
             }
         });
-
-        final String TAG = "MainActivity";
-
-        final EditText editText = root.findViewById(R.id.editText);
-        final TextView textView = root.findViewById(R.id.result);
-        TextView translateButton = root.findViewById(R.id.button);
+        //end camera
 
         //speech to text function
         if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             checkPermission();
         }
-        final TextView show=root.findViewById(R.id.speech);
-        final ImageView voicebtn=root.findViewById(R.id.voice);
+
 
         final SpeechRecognizer speechRecognizer= SpeechRecognizer.createSpeechRecognizer(getActivity());
 
@@ -157,6 +159,8 @@ public class HomeFragment extends Fragment {
             }
         });
         //end-speech to text function
+
+
 //Tuan-Chuc năng dich chữ:
         translateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,6 +188,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
     /*@Override
     public void onDestroy(){
         super.onDestroy();
@@ -202,6 +207,6 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(),"Permission Granted", Toast.LENGTH_SHORT).show();
         }
     }
-//dontcamera
+
 
 }
