@@ -2,8 +2,10 @@ package com.example.translate_application.home;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -16,8 +18,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +37,26 @@ import com.example.translate_application.R;
 import com.example.translate_application.ThemActivity;
 import com.example.translate_application.TranslateAPI;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
+
+  /*  String api_url = "https://api.datamuse.com/words?";
+    String syn = "rel_syn=";
+    String max_results = "&max=30";
+    String request_syn;*/
+    ListView list;
+    TextView textView;
 
     private HomeViewModel homeViewModel;
     public static final Integer RecordAudioRequestCode=1;
@@ -51,11 +72,13 @@ public class HomeFragment extends Fragment {
         final String TAG = "MainActivity";
         final EditText editText = root.findViewById(R.id.editText);
 
-        final TextView textView = root.findViewById(R.id.result);
-        //TextView translateButton = root.findViewById(R.id.button);
+       textView = root.findViewById(R.id.result);
+        ImageView translateButton = root.findViewById(R.id.resultbtn);
         final TextView show=root.findViewById(R.id.speech);
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
+
+        list = root.findViewById(R.id.synlist);
 
         //camera
         camera.setOnClickListener(new View.OnClickListener() {
@@ -201,14 +224,86 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        translateButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+            public void onClick(View v) {
+             //handleSynonym(editText.getText().toString());
+             startActivity(new Intent(getActivity(), ThemActivity.class));
 
+             }
+        });
 
 
 //end Chức năng dịch chữ
 
-
         return root;
     }
+
+  /*private void handleSynonym(String str) {
+            request_syn = api_url+syn+str+max_results;
+            new DatamuseQuery(request_syn, "synonym").execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class DatamuseQuery extends AsyncTask<Void,Void,Void> {
+
+        private String api_url;
+        private ArrayList<String> words;
+        private String json_rez;
+        String list_name;
+
+        DatamuseQuery(String url, String list_name) {
+            this.list_name = list_name;
+            this.api_url = url;
+            this.words = new ArrayList<>();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+
+                URL url = new URL(api_url);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                //Getting JSON from API
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                StringBuilder resultBuilder = new StringBuilder();
+
+                while ((line = reader.readLine()) != null)
+                    resultBuilder.append(line);
+
+                reader.close();
+
+                json_rez = resultBuilder.toString();
+
+                //JSON parsing
+                try {
+                    JSONArray jArray = new JSONArray(json_rez);
+                    for (int i = 0; i < jArray.length(); i++) {
+                        JSONObject jObject = jArray.getJSONObject(i);
+                        words.add(jObject.getString("word"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void voids) {
+            //calling a Activity method to fill the tables with results
+            //fill_List(words, list_name);
+        }
+    }
+
 
     /*@Override
     public void onDestroy(){

@@ -81,18 +81,19 @@
                 android:weightSum="6"
                 android:orientation="horizontal"
                 >
+
                 <EditText
                     android:id="@+id/editText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="5"
                     android:backgroundTint="@android:color/white"
-                    android:hint="Type here"
-                    android:layout_weight="5"/>
+                    android:hint="Type here" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/erase"
-                    android:layout_weight="1"
-                    android:drawableEnd="@drawable/ic_erase"
+                    android:layout_weight="0.5"
+                    android:src="@drawable/ic_erase"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
 
@@ -110,12 +111,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="5"/>
-                <TextView
+                <ImageView
                     android:id="@+id/resultbtn"
                     android:layout_width="0dp"
-                    android:drawableEnd="@drawable/ic_result"
+                    android:src="@drawable/ic_result"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"/>
+                    android:layout_weight="0.5"/>
 
             </LinearLayout>
 
@@ -169,7 +170,10 @@
        android:layout_height="0dp"
        android:layout_weight="7"
        android:layout_margin="5dp">
-
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/synlist"/>
    </androidx.cardview.widget.CardView>
 
 
