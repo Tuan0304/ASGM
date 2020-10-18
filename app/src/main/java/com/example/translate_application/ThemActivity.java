@@ -1,8 +1,10 @@
 package com.example.translate_application;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -35,18 +37,19 @@ public class ThemActivity extends AppCompatActivity {
     String max_results = "&max=30";
     String request_syn;
     ListView list;
-
+    SharedPreferences Mywords;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_text);
+
         btnclose = findViewById(R.id.ext_home);
         result = findViewById(R.id.resultbtn);
 
         nhapVB=findViewById(R.id.NhapVB);
         Bandich=findViewById(R.id.BanDich);
 
-
+        Mywords=getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
 
         nhapVB.addTextChangedListener(new TextWatcher() {
             @Override
@@ -100,16 +103,30 @@ public class ThemActivity extends AppCompatActivity {
         result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+             /* SharedPreferences.Editor myeditor = Mywords.edit();
+
+
+                myeditor.putString("kw", nhapVB.getText().toString());
+                myeditor.commit();*/
+
+                Fragment fragment = new Fragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("words",nhapVB.getText().toString());
+                fragment.setArguments(bundle);
+
+
                 ThemActivity.this.onBackPressed();
             }
         });
 
 
     }
+
     private void handleSynonym(String str) {
         request_syn = api_url+syn+str+max_results;
         new DatamuseQuery(request_syn, "synonym").execute();
     }
+
     private void fill_List(ArrayList<String> results, String list_name) {
 
         if (list_name.equals("synonym"))

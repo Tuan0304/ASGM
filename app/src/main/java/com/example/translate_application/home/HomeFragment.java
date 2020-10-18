@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -49,14 +50,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class HomeFragment extends Fragment {
 
-  /*  String api_url = "https://api.datamuse.com/words?";
-    String syn = "rel_syn=";
-    String max_results = "&max=30";
-    String request_syn;*/
     ListView list;
-    TextView textView;
+    TextView textView,editText;
+    SharedPreferences Mywords;
+    String KeyWord;
 
     private HomeViewModel homeViewModel;
     public static final Integer RecordAudioRequestCode=1;
@@ -66,12 +67,13 @@ public class HomeFragment extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final String TAG = "MainActivity";
-        final EditText editText = root.findViewById(R.id.editText);
 
+
+
+
+        editText = root.findViewById(R.id.editText);
        textView = root.findViewById(R.id.result);
         ImageView translateButton = root.findViewById(R.id.resultbtn);
         final TextView show=root.findViewById(R.id.speech);
@@ -79,6 +81,15 @@ public class HomeFragment extends Fragment {
         camera = root.findViewById(R.id.Camera);
 
         list = root.findViewById(R.id.synlist);
+
+       /* Mywords=getActivity().getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
+        KeyWord=Mywords.getString("kw","");
+        Toast.makeText(getActivity(), KeyWord, Toast.LENGTH_SHORT).show();*/
+
+
+
+
+
 
         //camera
         camera.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +201,21 @@ public class HomeFragment extends Fragment {
 
 
 //Tuan-Chuc năng dich chữ:
+      editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ThemActivity.class));
+
+
+            }
+        });
+      /* editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                startActivity(new Intent(getActivity(), ThemActivity.class));
+                return true;
+            }
+        });*/
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -199,6 +225,11 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editText.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
+                }else{
+
+
                 TranslateAPI translateAPI = new TranslateAPI(
                         Language.AUTO_DETECT,
                         Language.VIETNAMESE, editText.getText().toString());
@@ -215,6 +246,7 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "onFailure: "+ErrorText);
                     }
                 });
+                }
             }
 
             @Override
@@ -228,7 +260,7 @@ public class HomeFragment extends Fragment {
          @Override
             public void onClick(View v) {
              //handleSynonym(editText.getText().toString());
-             startActivity(new Intent(getActivity(), ThemActivity.class));
+            // startActivity(new Intent(getActivity(), ThemActivity.class));
 
              }
         });
@@ -238,78 +270,23 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+@Override
+public void onResume() {
 
-  /*private void handleSynonym(String str) {
-            request_syn = api_url+syn+str+max_results;
-            new DatamuseQuery(request_syn, "synonym").execute();
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class DatamuseQuery extends AsyncTask<Void,Void,Void> {
-
-        private String api_url;
-        private ArrayList<String> words;
-        private String json_rez;
-        String list_name;
-
-        DatamuseQuery(String url, String list_name) {
-            this.list_name = list_name;
-            this.api_url = url;
-            this.words = new ArrayList<>();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-
-                URL url = new URL(api_url);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-                //Getting JSON from API
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line;
-                StringBuilder resultBuilder = new StringBuilder();
-
-                while ((line = reader.readLine()) != null)
-                    resultBuilder.append(line);
-
-                reader.close();
-
-                json_rez = resultBuilder.toString();
-
-                //JSON parsing
-                try {
-                    JSONArray jArray = new JSONArray(json_rez);
-                    for (int i = 0; i < jArray.length(); i++) {
-                        JSONObject jObject = jArray.getJSONObject(i);
-                        words.add(jObject.getString("word"));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void voids) {
-            //calling a Activity method to fill the tables with results
-            //fill_List(words, list_name);
-        }
+    Bundle bundle = this.getArguments();
+    if (bundle == null) {
+        Toast.makeText(getActivity(), "nulllll", Toast.LENGTH_SHORT).show();
+    }else{
+        String myString = bundle.getString("words");
+        editText.setText(myString);
+        Toast.makeText(getActivity(), myString, Toast.LENGTH_SHORT).show();
     }
 
 
-    /*@Override
-    public void onDestroy(){
-        super.onDestroy();
-        speechRecognizer.destroy();
-    }*/
+
+    super.onResume();
+}
+
     private void checkPermission(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
