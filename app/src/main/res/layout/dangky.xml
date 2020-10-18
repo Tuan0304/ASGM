@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="@android:color/black"
+    android:weightSum="8"
+    >
+
+    <TextView
+        android:id="@+id/titledky"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+
+        android:gravity="center"
+        android:text="Đăng ký"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/hoi"
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="CHÚNG TÔI NÊN XƯNG HÔ VỚI BẠN NHƯ THẾ NÀO ĐÂY?"
+        android:textColor="#B5B8BD"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:gravity="center"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        app:cardCornerRadius="5dp"
+        app:cardMaxElevation="5dp"
+        android:elevation="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dkyid"
+        android:layout_marginBottom="15dp"
+        app:cardBackgroundColor="#212226"
+        >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="5"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:text="Tên đăng nhập"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:id="@+id/edtid"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@android:color/white"
+                    android:background="@android:color/transparent"
+                    android:textColorHint="@android:color/darker_gray"
+                    />
+            </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:id="@+id/tttk"
+
+        android:text="THÔNG TIN TÀI KHOẢN"
+        android:textColor="#B5B8BD"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:textSize="15dp"
+        />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:cardMaxElevation="5dp"
+        android:elevation="5dp"
+
+        app:cardCornerRadius="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dkyemail"
+        android:layout_marginBottom="15dp"
+        app:cardBackgroundColor="#212226"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="5">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="Email"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:id="@+id/edtemail"
+                android:layout_marginLeft="10dp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/transparent"
+                android:textColorHint="@android:color/darker_gray"
+                />
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        app:cardCornerRadius="5dp"
+        app:cardMaxElevation="5dp"
+        android:elevation="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/dkypass"
+        android:layout_marginBottom="15dp"
+        app:cardBackgroundColor="#212226"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:weightSum="5">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:text="Mật khẩu"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="3"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/edtpass"
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"
+                    android:textColorHint="@android:color/darker_gray"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/showpass2"
+                android:drawableRight="@drawable/ic_eye"
+                android:layout_marginRight="15dp"
+                android:layout_weight="8"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/dkhoan"
+
+        android:text="Khi nhấn nút đăng ký, nghĩa là bạn đã đồng ý với Điều Khoản Dịch Vụ và Chính Sách Bảo Mật của Discord."
+        android:textColor="#B5B8BD"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:textSize="14sp"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dky"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:elevation="5dp"
+        app:cardBackgroundColor="#7289d9"
+        app:cardCornerRadius="5dp"
+        app:cardMaxElevation="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Tạo tài khoản"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.example.translate_application;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -29,20 +30,10 @@ public class CameraScan extends AppCompatActivity {
 
 
         SurfaceView surfaceView = findViewById(R.id.surface);
-
-        surfaceView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
-
-
-
-
         Scanner scanner = new Scanner(this, surfaceView, new ScannerListener() {
             @Override
             public void onDetected(String detections) {
+
                 TranslateAPI translateAPI = new TranslateAPI(
                         Language.AUTO_DETECT,
                         Language.VIETNAMESE, detections);

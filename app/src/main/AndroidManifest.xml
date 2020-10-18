@@ -17,9 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ThemActivity"></activity>
+
         <activity android:name=".CameraScan" />
+        <activity android:name=".DangNhap" />
+        <activity android:name=".dangdkyact"/>
+        <activity android:name=".MainActivity"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".Manhinhchao"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

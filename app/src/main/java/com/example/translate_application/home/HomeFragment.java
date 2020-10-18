@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -47,16 +49,10 @@ public class HomeFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final String TAG = "MainActivity";
-
         final EditText editText = root.findViewById(R.id.editText);
-        editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), ThemActivity.class));
-            }
-        });
+
         final TextView textView = root.findViewById(R.id.result);
-        TextView translateButton = root.findViewById(R.id.button);
+        //TextView translateButton = root.findViewById(R.id.button);
         final TextView show=root.findViewById(R.id.speech);
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
@@ -171,9 +167,15 @@ public class HomeFragment extends Fragment {
 
 
 //Tuan-Chuc năng dich chữ:
-        translateButton.setOnClickListener(new View.OnClickListener() {
+
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 TranslateAPI translateAPI = new TranslateAPI(
                         Language.AUTO_DETECT,
                         Language.VIETNAMESE, editText.getText().toString());
@@ -182,6 +184,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onSuccess(String translatedText) {
                         textView.setText(translatedText);
+
                     }
 
                     @Override
@@ -189,9 +192,18 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "onFailure: "+ErrorText);
                     }
                 });
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
 
             }
         });
+
+
+
+
 //end Chức năng dịch chữ
 
 
