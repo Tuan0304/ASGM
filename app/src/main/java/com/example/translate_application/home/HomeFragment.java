@@ -82,9 +82,8 @@ public class HomeFragment extends Fragment {
 
         list = root.findViewById(R.id.synlist);
 
-       /* Mywords=getActivity().getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
-        KeyWord=Mywords.getString("kw","");
-        Toast.makeText(getActivity(), KeyWord, Toast.LENGTH_SHORT).show();*/
+
+
 
 
 
@@ -207,6 +206,7 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getActivity(), ThemActivity.class));
 
 
+
             }
         });
       /* editText.setOnTouchListener(new View.OnTouchListener() {
@@ -259,8 +259,7 @@ public class HomeFragment extends Fragment {
         translateButton.setOnClickListener(new View.OnClickListener() {
          @Override
             public void onClick(View v) {
-             //handleSynonym(editText.getText().toString());
-            // startActivity(new Intent(getActivity(), ThemActivity.class));
+
 
              }
         });
@@ -272,20 +271,20 @@ public class HomeFragment extends Fragment {
     }
 @Override
 public void onResume() {
+    Mywords=getActivity().getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
+    KeyWord=Mywords.getString("kw","");
+    editText.setText(KeyWord);
 
-    Bundle bundle = this.getArguments();
-    if (bundle == null) {
-        Toast.makeText(getActivity(), "nulllll", Toast.LENGTH_SHORT).show();
-    }else{
-        String myString = bundle.getString("words");
-        editText.setText(myString);
-        Toast.makeText(getActivity(), myString, Toast.LENGTH_SHORT).show();
-    }
-
-
+    Toast.makeText(getActivity(), KeyWord, Toast.LENGTH_SHORT).show();
 
     super.onResume();
 }
+
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+    }
 
     private void checkPermission(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){

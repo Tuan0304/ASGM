@@ -103,19 +103,11 @@ public class ThemActivity extends AppCompatActivity {
         result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             /* SharedPreferences.Editor myeditor = Mywords.edit();
-
-
+              SharedPreferences.Editor myeditor = Mywords.edit();
                 myeditor.putString("kw", nhapVB.getText().toString());
-                myeditor.commit();*/
+                myeditor.commit();
 
-                Fragment fragment = new Fragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("words",nhapVB.getText().toString());
-                fragment.setArguments(bundle);
-
-
-                ThemActivity.this.onBackPressed();
+                finish();
             }
         });
 
