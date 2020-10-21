@@ -2,8 +2,12 @@ package com.example.translate_application.home;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -13,11 +17,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +36,13 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.translate_application.CameraScan;
+import com.example.translate_application.CustomAdapter;
+import com.example.translate_application.DatabaseHelper;
 import com.example.translate_application.Language;
 import com.example.translate_application.R;
 import com.example.translate_application.ThemActivity;
 import com.example.translate_application.TranslateAPI;
+import com.example.translate_application.TuVung;
 
 import java.util.ArrayList;
 
@@ -40,6 +51,12 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     public static final Integer RecordAudioRequestCode=1;
     TextView camera;
+    CustomAdapter Adapter;
+    public static DatabaseHelper databaseHelper;
+    ArrayList<TuVung> arrayList;
+    ListView listView;
+    int index = 1;
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -48,8 +65,18 @@ public class HomeFragment extends Fragment {
 
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        databaseHelper = new DatabaseHelper(getActivity(),"Translate.sqlite",null,1);
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250))");
+        arrayList = new ArrayList<>();
+        listView = root.findViewById(R.id.lvTuVung);
         final String TAG = "MainActivity";
         final EditText editText = root.findViewById(R.id.editText);
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),ThemActivity.class));
+            }
+        });
 
         final TextView textView = root.findViewById(R.id.result);
         //TextView translateButton = root.findViewById(R.id.button);
@@ -205,11 +232,76 @@ public class HomeFragment extends Fragment {
 
 
 //end Chức năng dịch chữ
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                index = i;
+                final int a = arrayList.get(index).getId();
+                final String tucandich = arrayList.get(index).getTuCanDich();
+                final String bandich = arrayList.get(index).getBanDich();
 
+                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
+                            case R.id.delete:
+                                DialogXoa(a);
+                                break;
 
+                        }
+                        return false;
+                    }
+                });
+
+                popupMenu.show();
+                return false;
+            }
+        });
+        getListView();
         return root;
     }
+    //listview tu vung
+    public void getListView(){
+        Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung ORDER BY Id DESC");
+        if (cursor != null) {
+            while (cursor.moveToNext()){
+                arrayList.add(new TuVung(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2)
 
+                ));
+            }
+        }
+        Adapter =  new CustomAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
+        listView.setAdapter(Adapter);
+        Adapter.notifyDataSetChanged();
+    Log.d("don","ad");
+
+    }
+    public void DialogXoa(final int id){
+        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getActivity());
+        dialogXoa.setMessage("Bạn muốn xóa video này? ");
+        dialogXoa.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                databaseHelper.QueryData("DELETE FROM TuVung WHERE Id = '"+ id +"'");
+                arrayList.clear();
+                getListView();
+
+
+            }
+        });
+        dialogXoa.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        getListView();
+        dialogXoa.show();
+    }
     /*@Override
     public void onDestroy(){
         super.onDestroy();

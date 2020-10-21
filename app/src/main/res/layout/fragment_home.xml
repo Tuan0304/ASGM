@@ -81,13 +81,14 @@
                 android:weightSum="6"
                 android:orientation="horizontal"
                 >
+
                 <EditText
                     android:id="@+id/editText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="5"
                     android:backgroundTint="@android:color/white"
-                    android:hint="Type here"
-                    android:layout_weight="5"/>
+                    android:hint="Type here" />
 
                 <TextView
                     android:id="@+id/erase"
@@ -169,6 +170,10 @@
        android:layout_height="0dp"
        android:layout_weight="7"
        android:layout_margin="5dp">
+       <ListView
+           android:id="@+id/lvTuVung"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"></ListView>
 
    </androidx.cardview.widget.CardView>
 

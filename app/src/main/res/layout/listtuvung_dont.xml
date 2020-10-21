@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="10">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/upText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Từ cần dịch"
+            android:textColor="#252121"
+            android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/downText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="30dp"
+        android:layout_below="@+id/upText"
+        android:text="Bản dịch"
+        android:textColor="#5C5959"
+        android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="340dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="26dp"
+            android:padding="20dp"
+            android:src="@drawable/ic_unchecked" />
+    </RelativeLayout>
+
+
+</LinearLayout>

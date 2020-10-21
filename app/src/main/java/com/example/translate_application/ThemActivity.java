@@ -2,6 +2,7 @@ package com.example.translate_application;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,14 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.translate_application.home.HomeFragment;
+
 public class ThemActivity extends AppCompatActivity {
-    ImageView btnclose;
+    ImageView btnclose,btnaddlv;
     TextView nhapVB,Bandich;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_text);
+        btnaddlv=findViewById(R.id.addlv);
         btnclose = findViewById(R.id.ext_home);
         nhapVB=findViewById(R.id.home_NhapVB);
         Bandich=findViewById(R.id.home_BanDich);
@@ -57,6 +61,19 @@ public class ThemActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 Toast.makeText(ThemActivity.this, "haleluza", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnaddlv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HomeFragment.databaseHelper.INSERT_TuVung(
+                        nhapVB.getText().toString().trim(),
+                        Bandich.getText().toString().trim()
+
+                );
+
+                startActivity(new Intent(ThemActivity.this,MainActivity.class));
+
             }
         });
 
