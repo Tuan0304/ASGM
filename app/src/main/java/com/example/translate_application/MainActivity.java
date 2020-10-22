@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dropdown_menu);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -50,58 +51,13 @@ public class MainActivity extends AppCompatActivity  {
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_wordbook, R.id.nav_voice,R.id.nav_offline,R.id.nav_setting,R.id.nav_help)
+                R.id.nav_home, R.id.nav_wordbook, R.id.nav_voice, R.id.nav_offline, R.id.nav_setting, R.id.nav_help)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-//        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new HomeFragment()).commit();
-////        navigationView.bringToFront();
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//                switch (item.getItemId()){
-//                    case R.id.nav_home:
-//                  Toast.makeText(MainActivity.this, "alo", Toast.LENGTH_SHORT).show();
-//
-////                        select = new HomeFragment();
-//                        break;
-//                    case R.id.nav_wordbook:
-//
-//
-//                        break;
-//                    case R.id.nav_voice:
-////                        select = new VoiceFragment();
-//                        Toast.makeText(MainActivity.this, "vafaf", Toast.LENGTH_SHORT).show();
-//                        VoiceFragment fragment =  new VoiceFragment();
-//                        fragmentTransaction.add(R.id.nav_voice,fragment);
-//                        fragmentTransaction.commit();
-//                        break;
-//                    case R.id.nav_offline:
-////                        select = new OfflineFragment();
-//                        break;
-//                    case R.id.action_settings:
-////                        select = new SettingFragment();
-//                        break;
-//                    case R.id.nav_help:
-////                        select = new HelpFragment();
-//                        break;
-//                }
-////                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,select).commit();
-//                drawer.closeDrawer(GravityCompat.START);
-//                return true;
-//            }
-//        });
-  }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main2, menu);
-//        return true;
-//    }
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

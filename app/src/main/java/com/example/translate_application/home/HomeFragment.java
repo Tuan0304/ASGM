@@ -5,9 +5,12 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.app.SearchManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -22,10 +25,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +49,26 @@ import com.example.translate_application.ThemActivity;
 import com.example.translate_application.TranslateAPI;
 import com.example.translate_application.TuVung;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class HomeFragment extends Fragment {
+
+    ListView list;
+    TextView textView,editText;
+    SharedPreferences Mywords;
+    String KeyWord;
 
     private HomeViewModel homeViewModel;
     public static final Integer RecordAudioRequestCode=1;
@@ -62,8 +84,6 @@ public class HomeFragment extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         databaseHelper = new DatabaseHelper(getActivity(),"Translate.sqlite",null,1);
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250))");
@@ -78,11 +98,25 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        final TextView textView = root.findViewById(R.id.result);
-        //TextView translateButton = root.findViewById(R.id.button);
+
+
+
+        editText = root.findViewById(R.id.editText);
+       textView = root.findViewById(R.id.result);
+        ImageView translateButton = root.findViewById(R.id.resultbtn);
         final TextView show=root.findViewById(R.id.speech);
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
+
+        list = root.findViewById(R.id.synlist);
+
+
+
+
+
+
+
+
 
         //camera
         camera.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +228,22 @@ public class HomeFragment extends Fragment {
 
 
 //Tuan-Chuc năng dich chữ:
+      editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ThemActivity.class));
+
+
+
+            }
+        });
+      /* editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                startActivity(new Intent(getActivity(), ThemActivity.class));
+                return true;
+            }
+        });*/
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -203,6 +253,11 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editText.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
+                }else{
+
+
                 TranslateAPI translateAPI = new TranslateAPI(
                         Language.AUTO_DETECT,
                         Language.VIETNAMESE, editText.getText().toString());
@@ -219,6 +274,7 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "onFailure: "+ErrorText);
                     }
                 });
+                }
             }
 
             @Override
@@ -228,7 +284,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        translateButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+            public void onClick(View v) {
 
+
+             }
+        });
 
 
 //end Chức năng dịch chữ
@@ -290,6 +352,13 @@ public class HomeFragment extends Fragment {
                 arrayList.clear();
                 getListView();
 
+@Override
+public void onResume() {
+    Mywords=getActivity().getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
+    KeyWord=Mywords.getString("kw","");
+    editText.setText(KeyWord);
+
+    Toast.makeText(getActivity(), KeyWord, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -304,9 +373,15 @@ public class HomeFragment extends Fragment {
     }
     /*@Override
     public void onDestroy(){
+    super.onResume();
+}
+
+    @Override
+    public void onDestroy() {
+
         super.onDestroy();
-        speechRecognizer.destroy();
-    }*/
+    }
+
     private void checkPermission(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
