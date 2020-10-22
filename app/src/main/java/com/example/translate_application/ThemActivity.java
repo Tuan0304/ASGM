@@ -33,7 +33,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class ThemActivity extends AppCompatActivity {
-    ImageView btnclose,btnaddlv;
+
     ImageView btnclose,result;
     TextView nhapVB,Bandich;
     String api_url = "https://api.datamuse.com/words?";
@@ -47,7 +47,7 @@ public class ThemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_text);
-        btnaddlv=findViewById(R.id.addlv);
+        //btnaddlv=findViewById(R.id.resultbtn;
         btnclose = findViewById(R.id.ext_home);
         result = findViewById(R.id.resultbtn);
 
@@ -56,8 +56,8 @@ public class ThemActivity extends AppCompatActivity {
 
         Mywords=getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
 
-        databaseHelper=new DatabaseHelper(ThemActivity.this,"ListLS.sqllite",null,1);
-        databaseHelper.Uploaddata("CREATE TABLE IF NOT EXISTS LichSu(ID INTEGER PRIMARY KEY AUTOINCREMENT,Words NVARCHAR(200) )");
+        databaseHelper = new DatabaseHelper(this,"Translate.sqlite",null,1);
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250))");
 
         nhapVB.addTextChangedListener(new TextWatcher() {
             @Override
@@ -99,7 +99,7 @@ public class ThemActivity extends AppCompatActivity {
 
             }
         });
-        btnaddlv.setOnClickListener(new View.OnClickListener() {
+       /* btnaddlv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 HomeFragment.databaseHelper.INSERT_TuVung(
@@ -111,7 +111,7 @@ public class ThemActivity extends AppCompatActivity {
                 startActivity(new Intent(ThemActivity.this,MainActivity.class));
 
             }
-        });
+        });*/
 
 
         btnclose.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +128,7 @@ public class ThemActivity extends AppCompatActivity {
                 myeditor.putString("kw", nhapVB.getText().toString());
                 myeditor.commit();
 
-                databaseHelper.Uploaddata("insert into LichSu values(null,'" + nhapVB.getText().toString() + "')");
+                databaseHelper.Uploaddata("insert into TuVung values(null,'" + nhapVB.getText().toString() +  "','" + Bandich.getText().toString() +  "')");
 
                 finish();
             }

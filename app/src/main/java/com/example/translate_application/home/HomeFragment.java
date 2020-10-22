@@ -1,76 +1,41 @@
 package com.example.translate_application.home;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.speech.RecognitionListener;
-import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Checkable;
-import android.widget.CheckedTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 
 import com.example.translate_application.CameraScan;
 import com.example.translate_application.CustomAdapter;
 import com.example.translate_application.DatabaseHelper;
-import com.example.translate_application.DatabaseHelper;
 import com.example.translate_application.Language;
 import com.example.translate_application.R;
 import com.example.translate_application.ThemActivity;
 import com.example.translate_application.TranslateAPI;
 import com.example.translate_application.TuVung;
-import com.example.translate_application.TuVungAdapter;
-import com.example.translate_application.TuVungCT;
 import com.example.translate_application.VoiceActivity;
 
-import org.intellij.lang.annotations.PrintFormat;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -78,16 +43,10 @@ import static android.content.Context.MODE_PRIVATE;
 public class HomeFragment extends Fragment {
     int vitri=-1;
     boolean check =false;
-    ListView list;
     TextView textView,editText;
-    ImageView checkstar;
     SharedPreferences Mywords;
     String KeyWord;
-    DatabaseHelper databaseHelper;
     SharedPreferences MyAccount;
-    ArrayList<TuVungCT> arrayroom;
-    TuVungAdapter adapter;
-
     private HomeViewModel homeViewModel;
 
     TextView camera;
@@ -102,14 +61,14 @@ public class HomeFragment extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home, container, false);
         databaseHelper = new DatabaseHelper(getActivity(),"Translate.sqlite",null,1);
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250))");
         arrayList = new ArrayList<>();
-        listView = root.findViewById(R.id.lvTuVung);
-        final View root = inflater.inflate(R.layout.fragment_home, container, false);
+        listView = root.findViewById(R.id.historylist);
+
         final String TAG = "MainActivity";
-        final EditText editText = root.findViewById(R.id.editText);
+        editText = root.findViewById(R.id.editText);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,40 +76,12 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        arrayroom = new ArrayList<>();
-        adapter = new TuVungAdapter(getActivity(),R.layout.lslv, arrayroom);
-        list = root.findViewById(R.id.hystorylist);
-
-        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        list.setAdapter(adapter);
-      //  checkstar= root.findViewById(R.id.checkstar);
-        //khai bao database
-        databaseHelper=new DatabaseHelper(getActivity(),"ListLS.sqllite",null,1);
-        databaseHelper.Uploaddata("CREATE TABLE IF NOT EXISTS LichSu(ID INTEGER PRIMARY KEY AUTOINCREMENT,Words NVARCHAR(200) )");
-        databaseHelper.Uploaddata("CREATE TABLE IF NOT EXISTS TuVung(ID INTEGER PRIMARY KEY AUTOINCREMENT,WordsTV NVARCHAR(200) )");
-        //end database
-
-
-
-
-
         editText = root.findViewById(R.id.editText);
        textView = root.findViewById(R.id.result);
         ImageView translateButton = root.findViewById(R.id.resultbtn);
-        final TextView show=root.findViewById(R.id.speech);
+
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
-
-
-
-
-
-
-
-
-
-
-
 
         //camera
         camera.setOnClickListener(new View.OnClickListener() {
@@ -160,63 +91,6 @@ public class HomeFragment extends Fragment {
             }
         });
         //end camera
-
-        //hàm chọn từ vựng
-       /* list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long id) {
-                vitri=i;
-
-                checkstar.setActivated();
-
-                return false;
-            }
-        });*/
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-               vitri=i;
-               /* for (i = 0; i < list.getChildCount(); i++) {
-                    if (vitri == i) {
-                        list.getChildAt(i).setBackgroundColor(Color.LTGRAY);
-
-                    } else {
-                        list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                    }
-                }*/
-
-
-                Cursor dataselect2 = databaseHelper.GetData("select * from LichSu where ID=" + arrayroom.get(vitri).Id + "");
-
-                while (dataselect2.moveToNext()) {
-                    final String TuVung = dataselect2.getString(1);
-
-                        Cursor dataselect3 = databaseHelper.GetData("select * from TuVung");
-                        while (dataselect3.moveToNext()){
-                            final String TuVungTV = dataselect3.getString(1);
-
-                            if (TuVung.equals(TuVungTV)) {
-                                Toast.makeText(getActivity(), "Từ này đã có trong Từ Vựng đã học", Toast.LENGTH_SHORT).show();
-                            }else{
-                                databaseHelper.Uploaddata("insert into TuVung values(null,'" + TuVung + "')");
-                                Toast.makeText(getActivity(), TuVung, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-
-
-
-                }
-
-
-
-
-
-            }
-        });
-
-
 
 
         //speech to text function
@@ -240,13 +114,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-      /* editText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                startActivity(new Intent(getActivity(), ThemActivity.class));
-                return true;
-            }
-        });*/
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -302,6 +169,7 @@ public class HomeFragment extends Fragment {
 
 
 //end Chức năng dịch chữ
+
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -356,25 +224,9 @@ public class HomeFragment extends Fragment {
         dialogXoa.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                databaseHelper.QueryData("DELETE FROM TuVung WHERE Id = '"+ id +"'");
+                databaseHelper.QueryData("DELETE FROM DoVat WHERE Id = '"+ id +"'");
                 arrayList.clear();
                 getListView();
-
-@Override
-public void onResume() {
-    Mywords=getActivity().getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
-    KeyWord=Mywords.getString("kw","");
-    editText.setText(KeyWord);
-
-    arrayroom.clear();
-    Cursor cursor = databaseHelper.GetData("select * from LichSu");
-    while (cursor.moveToNext()) {
-        arrayroom.add(new TuVungCT(
-                cursor.getInt(0),
-                cursor.getString(1)
-        ));
-    }
-    adapter.notifyDataSetChanged();
 
 
             }
@@ -388,20 +240,18 @@ public void onResume() {
         getListView();
         dialogXoa.show();
     }
-    /*@Override
-    public void onDestroy(){
-    super.onResume();
-}
+        @Override
+        public void onResume() {
+
+            Mywords = getActivity().getApplicationContext().getSharedPreferences("words", MODE_PRIVATE);
+            KeyWord = Mywords.getString("kw", "");
+            editText.setText(KeyWord);
+
+            getListView();
 
 
-    @Override
-    public void onDestroy() {
-
-        super.onDestroy();
-    }
-
-
-
+            super.onResume();
+        }
 
 
 }
