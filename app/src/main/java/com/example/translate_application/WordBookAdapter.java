@@ -10,23 +10,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class CustomAdapter extends BaseAdapter {
+public class WordBookAdapter extends BaseAdapter {
     private Context context;
     private int layout;
-    private ArrayList<TuVung> tenList;
 
-    public CustomAdapter(Context context, int layout, ArrayList<TuVung> tenList) {
+
+    public WordBookAdapter(Context context, int layout, ArrayList<SaveWordBook> List) {
         this.context = context;
         this.layout = layout;
-        this.tenList = tenList;
+        this.List = List;
     }
+    List<SaveWordBook> List;
 
     @Override
     public int getCount() {
-        return tenList.size();
+        return List.size();
     }
 
     @Override
@@ -38,32 +40,39 @@ public class CustomAdapter extends BaseAdapter {
     public long getItemId(int i) {
         return 0;
     }
-    public class ViewHolder{
-        TextView txttuCanDich,TxtBanDich;
-        ImageView imgcheck;
 
+    public class Holder{
+        TextView txtLuutuCanDich,TxtLuuBanDich;
+        ImageView imguncheck;
     }
-
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder holder;
+     Holder holder;
         if (view == null){
-            holder = new ViewHolder();
+            holder = new Holder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(layout, null);
-            holder.txttuCanDich =(TextView) view.findViewById(R.id.upText);
-            holder.TxtBanDich =(TextView) view.findViewById(R.id.downText);
-            holder.imgcheck =(ImageView) view.findViewById(R.id.check);
+            holder.txtLuutuCanDich =(TextView) view.findViewById(R.id.upText);
+            holder.TxtLuuBanDich =(TextView) view.findViewById(R.id.downText);
+            holder.imguncheck =(ImageView) view.findViewById(R.id.check);
             view.setTag(holder);
         }else {
-            holder = (ViewHolder) view.getTag();
+            holder = (Holder) view.getTag();
         }
-        TuVung tuVung = tenList.get(i);
-        holder.txttuCanDich.setText(tuVung.getTuCanDich());
-        holder.TxtBanDich.setText(tuVung.getBanDich());
+        SaveWordBook saveWordBook = List.get(i);
+        holder.txtLuutuCanDich.setText(saveWordBook.getLuuTuVung());
+        holder.TxtLuuBanDich.setText(saveWordBook.getLuuTuVung());
         Log.d(TAG, "getView: aa");
+        holder.imguncheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+
+            }
+        });
         return view;
     }
+
+
 }

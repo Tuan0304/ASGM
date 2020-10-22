@@ -6,6 +6,7 @@ public class TuVung {
     private String BanDich;
 
 
+
     public TuVung(int id, String tuCanDich, String banDich) {
         Id = id;
         TuCanDich = tuCanDich;

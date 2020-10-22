@@ -2,6 +2,7 @@ package com.example.translate_application.home;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -65,6 +67,7 @@ public class HomeFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
         databaseHelper = new DatabaseHelper(getActivity(),"Translate.sqlite",null,1);
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250))");
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250))");
         arrayList = new ArrayList<>();
         listView = root.findViewById(R.id.historylist);
 
@@ -173,20 +176,21 @@ public class HomeFragment extends Fragment {
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                            @Override
-                                            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                                                vitri = i;
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                    index = i;
 
-                                                for (i = 0; i < listView.getChildCount(); i++) {
-                                                    if (vitri == i) {
-                                                        listView.getChildAt(i).setBackgroundColor(Color.LTGRAY);
+                final String tuvung = arrayList.get(index).getTuCanDich();
+                final String bandich = arrayList.get(index).getBanDich();
+                    databaseHelper.QueryData("INSERT Into SaveWordBook Values (NULL, '"+ tuvung + "','"+ bandich+"') ");
 
-                                                    } else {
-                                                        listView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                                                    }
-                                                }
-                                            }
-                                        }
+
+
+
+      }
+
+        }
+
         );
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -220,7 +224,7 @@ public class HomeFragment extends Fragment {
     }
     //listview tu vung
     public void getListView(){
-        Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung ORDER BY Id DESC");
+        Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung ORDER BY Id DESC ");
         if (cursor != null) {
             while (cursor.moveToNext()){
                 arrayList.add(new TuVung(
@@ -243,7 +247,7 @@ public class HomeFragment extends Fragment {
         dialogXoa.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                databaseHelper.QueryData("DELETE FROM DoVat WHERE Id = '"+ id +"'");
+                databaseHelper.QueryData("DELETE FROM TuVung WHERE Id = '"+ id +"'");
                 arrayList.clear();
                 getListView();
 
@@ -258,6 +262,10 @@ public class HomeFragment extends Fragment {
         });
         getListView();
         dialogXoa.show();
+    }
+    public void DialogThem(){
+//        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getActivity());
+
     }
 //        @Override
 //        public void onResume() {

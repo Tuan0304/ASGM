@@ -54,6 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return res;
 
     }
+
     }*/
 //    public void UPDATE_HINH(String ten,byte[] hinh,int Id){
 //        SQLiteDatabase database=getWritableDatabase();
@@ -65,6 +66,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //
 //        statement.execute();
 //    }
+   public long INSERT_Luu(String luuTuVung,String luuBanDich){
+       SQLiteDatabase database = getWritableDatabase();
+       ContentValues contentValues = new ContentValues();
+       contentValues.put("LuuTuVung",luuTuVung);
+       contentValues.put("LuuBanDich",luuBanDich);
+       long res = database.insert("SaveWordBook",null,contentValues);
+       database.close();
+       return res;
+    }
     //insert,update,delete
     public void Uploaddata(String sql){
         SQLiteDatabase database=getWritableDatabase();
