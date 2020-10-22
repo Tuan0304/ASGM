@@ -28,28 +28,11 @@ public class CameraScan extends AppCompatActivity {
         setContentView(R.layout.activity_camera_scan);
        final TextView text=findViewById(R.id.text);
 
-
-        SurfaceView surfaceView = findViewById(R.id.surface);
-        Scanner scanner = new Scanner(this, surfaceView, new ScannerListener() {
+        ScannerView scanner = findViewById(R.id.scanner);
+        scanner.setOnDetectedListener(this, new ScannerListener() {
             @Override
             public void onDetected(String detections) {
-
-                TranslateAPI translateAPI = new TranslateAPI(
-                        Language.AUTO_DETECT,
-                        Language.VIETNAMESE, detections);
-
-                translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
-                    @Override
-                    public void onSuccess(String translatedText) {
-                        text.setText(translatedText);
-                    }
-
-                    @Override
-                    public void onFailure(String ErrorText) {
-
-                    }
-                });
-
+               text.setText(detections);
             }
 
             @Override
@@ -57,5 +40,6 @@ public class CameraScan extends AppCompatActivity {
                 Log.d("state", state);
             }
         });
+
     }
 }

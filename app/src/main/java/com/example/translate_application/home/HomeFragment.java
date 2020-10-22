@@ -6,6 +6,8 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,9 +21,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Checkable;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,11 +40,16 @@ import androidx.fragment.app.Fragment;
 
 
 import com.example.translate_application.CameraScan;
+import com.example.translate_application.DatabaseHelper;
 import com.example.translate_application.Language;
 import com.example.translate_application.R;
 import com.example.translate_application.ThemActivity;
 import com.example.translate_application.TranslateAPI;
+import com.example.translate_application.TuVungAdapter;
+import com.example.translate_application.TuVungCT;
+import com.example.translate_application.VoiceActivity;
 
+import org.intellij.lang.annotations.PrintFormat;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,22 +65,42 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
-
+    int vitri=-1;
+    boolean check =false;
     ListView list;
     TextView textView,editText;
+    ImageView checkstar;
     SharedPreferences Mywords;
     String KeyWord;
+    DatabaseHelper databaseHelper;
+    SharedPreferences MyAccount;
+    ArrayList<TuVungCT> arrayroom;
+    TuVungAdapter adapter;
 
     private HomeViewModel homeViewModel;
-    public static final Integer RecordAudioRequestCode=1;
+
     TextView camera;
 
 
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final View root = inflater.inflate(R.layout.fragment_home, container, false);
         final String TAG = "MainActivity";
+
+        arrayroom = new ArrayList<>();
+        adapter = new TuVungAdapter(getActivity(),R.layout.lslv, arrayroom);
+        list = root.findViewById(R.id.hystorylist);
+
+        list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        list.setAdapter(adapter);
+      //  checkstar= root.findViewById(R.id.checkstar);
+        //khai bao database
+        databaseHelper=new DatabaseHelper(getActivity(),"ListLS.sqllite",null,1);
+        databaseHelper.Uploaddata("CREATE TABLE IF NOT EXISTS LichSu(ID INTEGER PRIMARY KEY AUTOINCREMENT,Words NVARCHAR(200) )");
+        databaseHelper.Uploaddata("CREATE TABLE IF NOT EXISTS TuVung(ID INTEGER PRIMARY KEY AUTOINCREMENT,WordsTV NVARCHAR(200) )");
+        //end database
+
 
 
 
@@ -80,7 +112,8 @@ public class HomeFragment extends Fragment {
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
 
-        list = root.findViewById(R.id.synlist);
+
+
 
 
 
@@ -99,103 +132,72 @@ public class HomeFragment extends Fragment {
         });
         //end camera
 
-
-        //speech to text function
-        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
-            checkPermission();
-        }
-
-
-        final SpeechRecognizer speechRecognizer= SpeechRecognizer.createSpeechRecognizer(getActivity());
-
-        final Intent speechRecognizerIntent= new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Language.JAPANESE);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Language.VIETNAMESE);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Language.CHINESE);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Language.GERMAN);
-
-
-        speechRecognizer.setRecognitionListener(new RecognitionListener() {
+        //hàm chọn từ vựng
+       /* list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onReadyForSpeech(Bundle bundle) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int i, long id) {
+                vitri=i;
 
-            }
+                checkstar.setActivated();
 
-            @Override
-            public void onBeginningOfSpeech() {
-                show.setText("");
-                show.setHint("Listening...");
-            }
-
-            @Override
-            public void onRmsChanged(float v) {
-
-            }
-
-            @Override
-            public void onBufferReceived(byte[] bytes) {
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-                Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onError(int i) {
-                Toast.makeText(getActivity(), "Lỗi rồi", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResults(Bundle bundle) {
-                //them đổi hình ở đây
-                voicebtn.setImageResource(R.drawable.ic_voiceoff);
-                ArrayList<String> data=bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                show.setText(data.get(0));
-
-                TranslateAPI translateAPI = new TranslateAPI(
-                        Language.AUTO_DETECT,
-                        Language.VIETNAMESE, data.get(0));
-
-                translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
-                    @Override
-                    public void onSuccess(String translatedText) {
-                        textView.setText(translatedText);
-                    }
-
-                    @Override
-                    public void onFailure(String ErrorText) {
-                        Log.d(TAG, "onFailure: "+ErrorText);
-                    }
-                });
-            }
-
-            @Override
-            public void onPartialResults(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onEvent(int i, Bundle bundle) {
-
-            }
-        });
-
-        voicebtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction()==MotionEvent.ACTION_UP){
-                    speechRecognizer.stopListening();
-                }
-                if(motionEvent.getAction()==MotionEvent.ACTION_DOWN){
-                    voicebtn.setImageResource(R.drawable.ic_voice);
-                    speechRecognizer.startListening(speechRecognizerIntent);
-                }
                 return false;
             }
+        });*/
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+               vitri=i;
+               /* for (i = 0; i < list.getChildCount(); i++) {
+                    if (vitri == i) {
+                        list.getChildAt(i).setBackgroundColor(Color.LTGRAY);
+
+                    } else {
+                        list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }*/
+
+
+                Cursor dataselect2 = databaseHelper.GetData("select * from LichSu where ID=" + arrayroom.get(vitri).Id + "");
+
+                while (dataselect2.moveToNext()) {
+                    final String TuVung = dataselect2.getString(1);
+
+                        Cursor dataselect3 = databaseHelper.GetData("select * from TuVung");
+                        while (dataselect3.moveToNext()){
+                            final String TuVungTV = dataselect3.getString(1);
+
+                            if (TuVung.equals(TuVungTV)) {
+                                Toast.makeText(getActivity(), "Từ này đã có trong Từ Vựng đã học", Toast.LENGTH_SHORT).show();
+                            }else{
+                                databaseHelper.Uploaddata("insert into TuVung values(null,'" + TuVung + "')");
+                                Toast.makeText(getActivity(), TuVung, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+
+
+
+                }
+
+
+
+
+
+            }
         });
+
+
+
+
+        //speech to text function
+        voicebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), VoiceActivity.class));
+            }
+        });
+
         //end-speech to text function
 
 
@@ -209,13 +211,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-      /* editText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                startActivity(new Intent(getActivity(), ThemActivity.class));
-                return true;
-            }
-        });*/
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -246,8 +241,13 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "onFailure: "+ErrorText);
                     }
                 });
+
+
+
                 }
-            }
+
+                }
+
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -275,10 +275,20 @@ public void onResume() {
     KeyWord=Mywords.getString("kw","");
     editText.setText(KeyWord);
 
-    Toast.makeText(getActivity(), KeyWord, Toast.LENGTH_SHORT).show();
+    arrayroom.clear();
+    Cursor cursor = databaseHelper.GetData("select * from LichSu");
+    while (cursor.moveToNext()) {
+        arrayroom.add(new TuVungCT(
+                cursor.getInt(0),
+                cursor.getString(1)
+        ));
+    }
+    adapter.notifyDataSetChanged();
+
 
     super.onResume();
 }
+
 
     @Override
     public void onDestroy() {
@@ -286,19 +296,8 @@ public void onResume() {
         super.onDestroy();
     }
 
-    private void checkPermission(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},RecordAudioRequestCode);
-        }
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == RecordAudioRequestCode && grantResults.length > 0 ){
-            if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                Toast.makeText(getActivity(),"Permission Granted", Toast.LENGTH_SHORT).show();
-        }
-    }
+
+
 
 
 }

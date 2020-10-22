@@ -37,6 +37,7 @@ public class ThemActivity extends AppCompatActivity {
     String max_results = "&max=30";
     String request_syn;
     ListView list;
+    DatabaseHelper databaseHelper;
     SharedPreferences Mywords;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,9 @@ public class ThemActivity extends AppCompatActivity {
         Bandich=findViewById(R.id.BanDich);
 
         Mywords=getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
+
+        databaseHelper=new DatabaseHelper(ThemActivity.this,"ListLS.sqllite",null,1);
+        databaseHelper.Uploaddata("CREATE TABLE IF NOT EXISTS LichSu(ID INTEGER PRIMARY KEY AUTOINCREMENT,Words NVARCHAR(200) )");
 
         nhapVB.addTextChangedListener(new TextWatcher() {
             @Override
@@ -106,6 +110,8 @@ public class ThemActivity extends AppCompatActivity {
               SharedPreferences.Editor myeditor = Mywords.edit();
                 myeditor.putString("kw", nhapVB.getText().toString());
                 myeditor.commit();
+
+                databaseHelper.Uploaddata("insert into LichSu values(null,'" + nhapVB.getText().toString() + "')");
 
                 finish();
             }

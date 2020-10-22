@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database=getReadableDatabase();
         return database.rawQuery(sql,null);
     }
-    public void INSERT_HINH(String ten,byte[] hinh,String tentaikhoan){
+   /* public void INSERT_HINH(String ten,byte[] hinh,String tentaikhoan){
         SQLiteDatabase database=getWritableDatabase();
         String sql="Insert into Hinh values(null,?,?,?)";
         SQLiteStatement statement=database.compileStatement(sql);
@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         statement.bindString(3,tentaikhoan);
 
         statement.executeInsert();
-    }
+    }*/
 //    public void UPDATE_HINH(String ten,byte[] hinh,int Id){
 //        SQLiteDatabase database=getWritableDatabase();
 //        String sql="Update Hinh set ten=?,hinh=? where Id=null";
