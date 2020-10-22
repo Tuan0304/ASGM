@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -169,6 +170,24 @@ public class HomeFragment extends Fragment {
 
 
 //end Chức năng dịch chữ
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                                                vitri = i;
+
+                                                for (i = 0; i < listView.getChildCount(); i++) {
+                                                    if (vitri == i) {
+                                                        listView.getChildAt(i).setBackgroundColor(Color.LTGRAY);
+
+                                                    } else {
+                                                        listView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                                                    }
+                                                }
+                                            }
+                                        }
+        );
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
