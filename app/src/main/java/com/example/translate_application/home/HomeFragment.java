@@ -240,18 +240,18 @@ public class HomeFragment extends Fragment {
         getListView();
         dialogXoa.show();
     }
-        @Override
-        public void onResume() {
-
-            Mywords = getActivity().getApplicationContext().getSharedPreferences("words", MODE_PRIVATE);
-            KeyWord = Mywords.getString("kw", "");
-            editText.setText(KeyWord);
-
-            getListView();
-
-
-            super.onResume();
-        }
+//        @Override
+//        public void onResume() {
+//
+//            Mywords = getActivity().getApplicationContext().getSharedPreferences("words", MODE_PRIVATE);
+//            KeyWord = Mywords.getString("kw", "");
+//            editText.setText(KeyWord);
+//
+//            getListView();
+//
+//
+//            super.onResume();
+//        }
 
 
 }
