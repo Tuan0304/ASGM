@@ -78,6 +78,10 @@ public class HomeFragment extends Fragment {
 
         final String TAG = "MainActivity";
         editText = root.findViewById(R.id.editText);
+
+        Adapter =  new CustomAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
+        listView.setAdapter(Adapter);
+
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,7 +96,7 @@ public class HomeFragment extends Fragment {
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
 
-
+// swipe trên listview
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -128,8 +132,9 @@ public class HomeFragment extends Fragment {
                 menu.addMenuItem(deleteItem);
             }
         };
+        //end swipe listview
 
-// set creator
+// thao tac trên list view
         listView.setMenuCreator(creator);
 
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
@@ -148,19 +153,7 @@ public class HomeFragment extends Fragment {
                         index = i;
                         Log.d("tag",""+index);
                         databaseHelper.QueryData("Delete from TuVung where Id = '" + arrayList.get(index).Id + "'");
-                        arrayList.clear();
-                        Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung ORDER BY Id DESC ");
-                        if (cursor != null) {
-                            while (cursor.moveToNext()){
-                                arrayList.add(new TuVung(
-                                        cursor.getInt(0),
-                                        cursor.getString(1),
-                                        cursor.getString(2)
-
-                                ));
-                            }
-                        }
-                        Adapter.notifyDataSetChanged();
+                       getListView();
 
 
                         break;
@@ -175,6 +168,7 @@ public class HomeFragment extends Fragment {
         listView.setCloseInterpolator(new BounceInterpolator());
 // Open Interpolator
         //listView.setOpenInterpolator(...);
+        //end thao tac trên listview
 
         //camera
         camera.setOnClickListener(new View.OnClickListener() {
@@ -293,6 +287,7 @@ public class HomeFragment extends Fragment {
     //listview tu vung
     public void getListView(){
         Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung ORDER BY Id DESC ");
+        arrayList.clear();
         if (cursor != null) {
             while (cursor.moveToNext()){
                 arrayList.add(new TuVung(
@@ -303,8 +298,7 @@ public class HomeFragment extends Fragment {
                 ));
             }
         }
-        Adapter =  new CustomAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
-        listView.setAdapter(Adapter);
+
         Adapter.notifyDataSetChanged();
     Log.d("don","ad");
 

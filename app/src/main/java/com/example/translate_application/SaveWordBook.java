@@ -1,9 +1,9 @@
 package com.example.translate_application;
 
 public class SaveWordBook {
-    private int IdTuVung;
-    private String LuuTuVung;
-    private String LuuBanDich;
+    public int IdTuVung;
+    public String LuuTuVung;
+    public String LuuBanDich;
 
     public SaveWordBook(int idTuVung, String luuTuVung, String luuBanDich) {
         IdTuVung = idTuVung;
