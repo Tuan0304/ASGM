@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,6 +30,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.translate_application.CameraScan;
 import com.example.translate_application.CustomAdapter;
 import com.example.translate_application.DatabaseHelper;
@@ -44,7 +50,6 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
-    int vitri=-1;
     boolean check =false;
     TextView textView,editText;
     SharedPreferences Mywords;
@@ -56,7 +61,7 @@ public class HomeFragment extends Fragment {
     CustomAdapter Adapter;
     public static DatabaseHelper databaseHelper;
     ArrayList<TuVung> arrayList;
-    ListView listView;
+    SwipeMenuListView listView;
     int index = 1;
 
 
@@ -87,6 +92,90 @@ public class HomeFragment extends Fragment {
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
 
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "open" item
+                SwipeMenuItem openItem = new SwipeMenuItem(
+                        getContext());
+                // set item background
+                openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                        0xCE)));
+                // set item width
+                openItem.setWidth(200);
+                // set item title
+                openItem.setTitle("Thêm");
+                // set item title fontsize
+                openItem.setTitleSize(18);
+                // set item title font color
+                openItem.setTitleColor(Color.WHITE);
+                // add to menu
+                menu.addMenuItem(openItem);
+
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(
+                        getContext());
+                // set item background
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                        0x3F, 0x25)));
+                // set item width
+                deleteItem.setWidth(200);
+                // set a icon
+                deleteItem.setIcon(R.drawable.ic_dont_close);
+                // add to menu
+                menu.addMenuItem(deleteItem);
+            }
+        };
+
+// set creator
+        listView.setMenuCreator(creator);
+
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int i, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        // open
+                        index = i;
+
+                        final String tuvung = arrayList.get(index).getTuCanDich();
+                        final String bandich = arrayList.get(index).getBanDich();
+                        databaseHelper.QueryData("INSERT Into SaveWordBook Values (NULL, '"+ tuvung + "','"+ bandich+"') ");
+                        break;
+                    case 1:
+                        index = i;
+                        Log.d("tag",""+index);
+                        databaseHelper.QueryData("Delete from TuVung where Id = '" + arrayList.get(index).Id + "'");
+                        arrayList.clear();
+                        Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung ORDER BY Id DESC ");
+                        if (cursor != null) {
+                            while (cursor.moveToNext()){
+                                arrayList.add(new TuVung(
+                                        cursor.getInt(0),
+                                        cursor.getString(1),
+                                        cursor.getString(2)
+
+                                ));
+                            }
+                        }
+                        Adapter.notifyDataSetChanged();
+
+
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
+        listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
+
+        // Close Interpolator
+        listView.setCloseInterpolator(new BounceInterpolator());
+// Open Interpolator
+        //listView.setOpenInterpolator(...);
+
         //camera
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +202,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ThemActivity.class));
-
-
-
             }
         });
 
@@ -147,19 +233,9 @@ public class HomeFragment extends Fragment {
                     public void onFailure(String ErrorText) {
                         Log.d(TAG, "onFailure: "+ErrorText);
                     }
-                });
-
-
-
-                }
-
-                }
-
-
+                }); } }
             @Override
             public void afterTextChanged(Editable s) {
-
-
             }
         });
 
@@ -167,25 +243,13 @@ public class HomeFragment extends Fragment {
          @Override
             public void onClick(View v) {
 
-
              }
         });
-
-
 //end Chức năng dịch chữ
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                    index = i;
-
-                final String tuvung = arrayList.get(index).getTuCanDich();
-                final String bandich = arrayList.get(index).getBanDich();
-                    databaseHelper.QueryData("INSERT Into SaveWordBook Values (NULL, '"+ tuvung + "','"+ bandich+"') ");
-
-
-
 
       }
 
@@ -193,10 +257,10 @@ public class HomeFragment extends Fragment {
 
         );
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+      listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                index = i;
+              /* index = i;
                 final int a = arrayList.get(index).getId();
                 final String tucandich = arrayList.get(index).getTuCanDich();
                 final String bandich = arrayList.get(index).getBanDich();
@@ -215,13 +279,17 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-                popupMenu.show();
+                popupMenu.show();*/
                 return false;
             }
         });
+
+
         getListView();
         return root;
-    }
+    }//end oncreateview
+
+
     //listview tu vung
     public void getListView(){
         Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung ORDER BY Id DESC ");
@@ -241,7 +309,7 @@ public class HomeFragment extends Fragment {
     Log.d("don","ad");
 
     }
-    public void DialogXoa(final int id){
+ /*   public void DialogXoa(final int id){
         AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getActivity());
         dialogXoa.setMessage("Bạn muốn xóa video này? ");
         dialogXoa.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
@@ -262,11 +330,11 @@ public class HomeFragment extends Fragment {
         });
         getListView();
         dialogXoa.show();
-    }
-    public void DialogThem(){
+    }*/
+   /* public void DialogThem(){
 //        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getActivity());
 
-    }
+    }*/
 //        @Override
 //        public void onResume() {
 //

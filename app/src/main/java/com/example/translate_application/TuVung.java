@@ -1,9 +1,9 @@
 package com.example.translate_application;
 
 public class TuVung {
-    private int Id;
-    private String TuCanDich;
-    private String BanDich;
+    public int Id;
+    public String TuCanDich;
+    public String BanDich;
 
 
 
