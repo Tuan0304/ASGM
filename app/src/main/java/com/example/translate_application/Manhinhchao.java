@@ -44,6 +44,8 @@ public class Manhinhchao extends AppCompatActivity {
         }
         //end tự đăng nhập
 
+
+
         //event + animation cho nut đăng ký và đăng nhập
     Dangky.setOnClickListener(new View.OnClickListener() {
         @Override

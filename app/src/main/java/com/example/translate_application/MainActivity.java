@@ -1,14 +1,19 @@
 package com.example.translate_application;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.menu.ShowableListMenu;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
@@ -36,6 +42,9 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity  {
 
     private AppBarConfiguration mAppBarConfiguration;
+    ImageView logout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +54,31 @@ public class MainActivity extends AppCompatActivity  {
         Toolbar toolbar = findViewById(R.id.toolbar);
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        View headerview = navigationView.getHeaderView(0);
+        logout = headerview.findViewById(R.id.logout2);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logout();
+            }
+        });
+
+
+
+
         //end anhxa
+//        logout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SharedPreferences preferences = getSharedPreferences("CusACCC",MODE_PRIVATE);
+//                SharedPreferences.Editor editor = preferences.edit();
+//                editor.clear();
+//                editor.apply();
+//                finish();
+//                Intent list=new Intent(MainActivity.this,Manhinhchao.class);
+//                startActivity(list);
+//            }
+//        });
 
         //fragment
         setSupportActionBar(toolbar);
@@ -66,6 +99,28 @@ public class MainActivity extends AppCompatActivity  {
         //showmenu
         //end fragment
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+                getMenuInflater().inflate(R.menu.logout, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.action_logout){
+            SharedPreferences preferences = getSharedPreferences("CusACCC",MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.apply();
+            finish();
+            Intent list=new Intent(MainActivity.this,Manhinhchao.class);
+            startActivity(list);
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 //hostfragmentview(homefragment)
     @Override
     public boolean onSupportNavigateUp() {
@@ -74,4 +129,30 @@ public class MainActivity extends AppCompatActivity  {
                 || super.onSupportNavigateUp();
     }
     //end
+
+        private void Logout(){
+            AlertDialog.Builder logoutDialog = new AlertDialog.Builder(this);
+            logoutDialog.setMessage("Bạn có muốn đăng xuất? ");
+            logoutDialog.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    SharedPreferences preferences = getSharedPreferences("CusACCC",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    finish();
+                    Intent list=new Intent(MainActivity.this,Manhinhchao.class);
+                    startActivity(list);
+
+
+                }
+            });
+            logoutDialog.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+               logoutDialog.show();
+    }
 }
