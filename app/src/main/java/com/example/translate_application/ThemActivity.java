@@ -47,12 +47,13 @@ public class ThemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_text);
-        //btnaddlv=findViewById(R.id.resultbtn;
+        //anhxa
         btnclose = findViewById(R.id.ext_home);
         result = findViewById(R.id.resultbtn);
 
         nhapVB=findViewById(R.id.NhapVB);
         Bandich=findViewById(R.id.BanDich);
+        //endanhxa
 
         Mywords=getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
 
@@ -60,10 +61,10 @@ public class ThemActivity extends AppCompatActivity {
         MyAccount=getApplicationContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
         tentaikhoan=MyAccount.getString("id","");
         //end local key
-
+        //database
         databaseHelper = new DatabaseHelper(this,"Translate2.sqlite",null,1);
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
-
+        //end database
         nhapVB.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -104,19 +105,7 @@ public class ThemActivity extends AppCompatActivity {
 
             }
         });
-       /* btnaddlv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HomeFragment.databaseHelper.INSERT_TuVung(
-                        nhapVB.getText().toString().trim(),
-                        Bandich.getText().toString().trim()
 
-                );
-
-                startActivity(new Intent(ThemActivity.this,MainActivity.class));
-
-            }
-        });*/
 
 
         btnclose.setOnClickListener(new View.OnClickListener() {

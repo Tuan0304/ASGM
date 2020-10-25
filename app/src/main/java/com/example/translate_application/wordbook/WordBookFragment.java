@@ -53,14 +53,22 @@ int index=1;
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_wordbook, container, false);
+        //database
         databaseHelper = new DatabaseHelper(getActivity(),"Translate2.sqlite",null,1);
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
-
+        //end database
+        //ánh xạ
         listView =  root.findViewById(R.id.lvWordBook);
+        // end ánh xạ
+
+        //khai báo arraylist
          arrayList = new ArrayList<>();
         adapter =  new WordBookAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
         listView.setAdapter(adapter);
+        //end arraylist
+
+        // swipe listview
         listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
 
         listView.setCloseInterpolator(new BounceInterpolator());
@@ -122,6 +130,9 @@ int index=1;
         getListView();
         return root;
     }
+    //end swipe liset view
+
+    //xổ listview từ vựng đã lưu
     public void getListView(){
         //local key
         MyAccount=getContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
@@ -145,4 +156,5 @@ int index=1;
 
 
     }
+    //end xổ listview
 }
