@@ -205,8 +205,203 @@ public class HomeFragment extends Fragment {
                         strIn="auto";
                         break;
                     case 1:
-
+                        strIn="af";
                         break;
+                    case 2:
+                        strIn="sq";
+                        break;
+                    case 3:
+                        strIn="ar";
+                        break;
+                    case 4:
+                        strIn="hy";
+                        break;
+                    case 5:
+                        strIn="az";
+                        break;
+                    case 6:
+                        strIn="eu";
+                        break;
+                    case 7:
+                        strIn="be";
+                        break;
+                    case 8:
+                        strIn="bn";
+                        break;
+                    case 9:
+                        strIn="bg";
+                        break;
+                    case 10:
+                        strIn="ca";
+                        break;
+                    case 11:
+                        strIn="zh-CN";
+                        break;
+                    case 12:
+                        strIn="hr";
+                        break;
+                    case 13:
+                        strIn="cs";
+                        break;
+                    case 14:
+                        strIn="da";
+                        break;
+                    case 15:
+                        strIn="nl";
+                        break;
+                    case 16:
+                        strIn="en";
+                        break;
+                    case 17:
+                        strIn="et";
+                        break;
+                    case 18:
+                        strIn="tl";
+                        break;
+                    case 19:
+                        strIn="fi";
+                        break;
+                    case 20:
+                        strIn="fr";
+                        break;
+                    case 21:
+                        strIn="gl";
+                        break;
+                    case 22:
+                        strIn="ka";
+                        break;
+                    case 23:
+                        strIn="de";
+                        break;
+                    case 24:
+                        strIn="el";
+                        break;
+                    case 25:
+                        strIn="gu";
+                        break;
+                    case 26:
+                        strIn="ht";
+                        break;
+                    case 27:
+                        strIn="iw";
+                        break;
+                    case 28:
+                        strIn="hi";
+                        break;
+                    case 29:
+                        strIn="hu";
+                        break;
+                    case 30:
+                        strIn="is";
+                        break;
+                    case 31:
+                        strIn="id";
+                        break;
+                    case 32:
+                        strIn="ga";
+                        break;
+                    case 33:
+                        strIn="it";
+                        break;
+                    case 34:
+                        strIn="ja";
+                        break;
+                    case 35:
+                        strIn="kn";
+                        break;
+                    case 36:
+                        strIn="ko";
+                        break;
+                    case 37:
+                        strIn="la";
+                        break;
+                    case 38:
+                        strIn="lv";
+                        break;
+                    case 39:
+                        strIn="lt";
+                        break;
+                    case 40:
+                        strIn="mk";
+                        break;
+                    case 41:
+                        strIn="ms";
+                        break;
+                    case 42:
+                        strIn="mt";
+                        break;
+                    case 43:
+                        strIn="no";
+                        break;
+                    case 44:
+                        strIn="fa";
+                        break;
+                    case 45:
+                        strIn="pl";
+                        break;
+                    case 46:
+                        strIn="pt";
+                        break;
+                    case 47:
+                        strIn="ro";
+                        break;
+                    case 48:
+                        strIn="ru";
+                        break;
+                    case 49:
+                        strIn="sr";
+                        break;
+                    case 50:
+                        strIn="sk";
+                        break;
+                    case 51:
+                        strIn="sl";
+                        break;
+                    case 52:
+                        strIn="es";
+                        break;
+                    case 53:
+                        strIn="sw";
+                        break;
+                    case 54:
+                        strIn="sv";
+                        break;
+                    case 55:
+                        strIn="ta";
+                        break;
+                    case 56:
+                        strIn="te";
+                        break;
+                    case 57:
+                        strIn="th";
+                        break;
+                    case 58:
+                        strIn="tr";
+                        break;
+                    case 59:
+                        strIn="uk";
+                        break;
+                    case 60:
+                        strIn="ur";
+                        break;
+                    case 61:
+                        strIn="vi";
+                        break;
+                    case 62:
+                        strIn="cy";
+                        break;
+                    case 64:
+                        strIn="yi";
+                        break;
+                    case 65:
+                        strIn="zh-CN";
+                        break;
+                    case 66:
+                        strIn="zh-TW";
+                        break;
+
+
+
                 }
             }
 
