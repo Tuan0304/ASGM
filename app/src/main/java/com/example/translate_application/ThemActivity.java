@@ -39,7 +39,7 @@ public class ThemActivity extends AppCompatActivity {
     String api_url = "https://api.datamuse.com/words?";
     String syn = "rel_syn=";
     String max_results = "&max=30";
-    String request_syn,tentaikhoan;
+    String request_syn,tentaikhoan,strIn,strOut;
     ListView list;
     DatabaseHelper databaseHelper;
     SharedPreferences Mywords,MyAccount;
@@ -80,8 +80,8 @@ public class ThemActivity extends AppCompatActivity {
                         handleSynonym(nhapVB.getText().toString());
 
                         TranslateAPI translateAPI = new TranslateAPI(
-                                Language.AUTO_DETECT,
-                                Language.VIETNAMESE, nhapVB.getText().toString());
+                                "auto",
+                                "af", nhapVB.getText().toString());
 
                         translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
                             @Override

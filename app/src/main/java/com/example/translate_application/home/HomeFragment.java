@@ -87,7 +87,8 @@ public class HomeFragment extends Fragment {
         ImageView translateButton = root.findViewById(R.id.resultbtn);
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
-        final Spinner spinner = (Spinner) root.findViewById(R.id.spinner);
+        final Spinner spinnerIn = (Spinner) root.findViewById(R.id.spinnerin);
+        final Spinner spinnerOut = (Spinner) root.findViewById(R.id.spinnerout);
         //end ánh xạ
 
         //khai báo arraylist
@@ -190,16 +191,23 @@ public class HomeFragment extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+        spinnerIn.setAdapter(dataAdapter);
+        spinnerOut.setAdapter(dataAdapter);
 
         // Spinner click listener
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerIn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
                 String item = parent.getItemAtPosition(position).toString();
+                switch (position) {
+                    case 0:
+                        strIn="auto";
+                        break;
+                    case 1:
 
-              strIn=item;
+                        break;
+                }
             }
 
             @Override
@@ -207,6 +215,21 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        spinnerOut.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // On selecting a spinner item
+                String item = parent.getItemAtPosition(position).toString();
+                strOut=item;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         //end khai báo spinner
 

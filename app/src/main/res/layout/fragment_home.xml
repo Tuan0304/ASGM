@@ -21,12 +21,11 @@
         android:orientation="horizontal"
         >
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/spinnerin"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-
             android:drawableEnd="@drawable/ic_drop"
             android:textAlignment="viewEnd"
             android:layout_marginTop="30dp"
@@ -34,7 +33,6 @@
             android:textStyle="bold"
             android:textSize="25sp"
             android:textColor="#3E8EEF"
-
             tools:ignore="RtlCompat" />
         <TextView
             android:layout_marginLeft="20dp"
@@ -45,13 +43,12 @@
 
 
             />
-        <TextView
+        <Spinner
+            android:id="@+id/spinnerout"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:layout_marginRight="30dp"
-            android:text="Lang"
             android:drawableEnd="@drawable/ic_drop"
             android:textAlignment="viewEnd"
             android:layout_marginTop="30dp"
@@ -59,7 +56,6 @@
             android:textStyle="bold"
             android:textSize="25sp"
             android:textColor="#3E8EEF"
-            android:drawableRight="@drawable/ic_drop"
             tools:ignore="RtlCompat" />
 
     </LinearLayout>
