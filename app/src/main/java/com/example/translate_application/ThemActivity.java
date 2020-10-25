@@ -47,6 +47,18 @@ public class ThemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_text);
+
+        //hàm lấy intent lang từ home
+        Intent ii=getIntent();
+        Bundle b=ii.getExtras();
+        if(b!=null)
+        {
+            strIn=(String) b.get("langin");
+            strOut=(String) b.get("langout");
+
+        }
+        //end hàm lấy intent lang
+
         //anh xa
         btnclose = findViewById(R.id.ext_home);
         result = findViewById(R.id.resultbtn);
@@ -80,8 +92,8 @@ public class ThemActivity extends AppCompatActivity {
                 }else{
                         handleSynonym(nhapVB.getText().toString());
                         TranslateAPI translateAPI = new TranslateAPI(
-                                "auto",
-                                "af", nhapVB.getText().toString());
+                                strIn,
+                                strOut, nhapVB.getText().toString());
 
                         translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
                             @Override

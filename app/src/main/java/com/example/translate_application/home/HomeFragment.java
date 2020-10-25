@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment {
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
         //end database
-        editText = root.findViewById(R.id.editText);
+
         //ánh xạ
         editText = root.findViewById(R.id.editText);
         textView = root.findViewById(R.id.result);
@@ -416,8 +416,209 @@ public class HomeFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
                 String item = parent.getItemAtPosition(position).toString();
-                strOut=item;
-            }
+                switch (position) {
+                    case 0:
+                        strOut = "auto";
+                        break;
+                    case 1:
+                        strOut = "af";
+                        break;
+                    case 2:
+                        strOut = "sq";
+                        break;
+                    case 3:
+                        strOut = "ar";
+                        break;
+                    case 4:
+                        strOut = "hy";
+                        break;
+                    case 5:
+                        strOut = "az";
+                        break;
+                    case 6:
+                        strOut = "eu";
+                        break;
+                    case 7:
+                        strOut = "be";
+                        break;
+                    case 8:
+                        strOut = "bn";
+                        break;
+                    case 9:
+                        strOut = "bg";
+                        break;
+                    case 10:
+                        strOut= "ca";
+                        break;
+                    case 11:
+                        strOut= "zh-CN";
+                        break;
+                    case 12:
+                        strOut= "hr";
+                        break;
+                    case 13:
+                        strOut= "cs";
+                        break;
+                    case 14:
+                        strOut= "da";
+                        break;
+                    case 15:
+                        strOut= "nl";
+                        break;
+                    case 16:
+                        strOut= "en";
+                        break;
+                    case 17:
+                        strOut= "et";
+                        break;
+                    case 18:
+                        strOut= "tl";
+                        break;
+                    case 19:
+                        strOut= "fi";
+                        break;
+                    case 20:
+                        strOut= "fr";
+                        break;
+                    case 21:
+                        strOut= "gl";
+                        break;
+                    case 22:
+                        strOut= "ka";
+                        break;
+                    case 23:
+                        strOut= "de";
+                        break;
+                    case 24:
+                        strOut= "el";
+                        break;
+                    case 25:
+                        strOut= "gu";
+                        break;
+                    case 26:
+                        strOut= "ht";
+                        break;
+                    case 27:
+                        strOut= "iw";
+                        break;
+                    case 28:
+                        strOut= "hi";
+                        break;
+                    case 29:
+                        strOut= "hu";
+                        break;
+                    case 30:
+                        strOut= "is";
+                        break;
+                    case 31:
+                        strOut= "id";
+                        break;
+                    case 32:
+                        strOut= "ga";
+                        break;
+                    case 33:
+                        strOut= "it";
+                        break;
+                    case 34:
+                        strOut= "ja";
+                        break;
+                    case 35:
+                        strOut= "kn";
+                        break;
+                    case 36:
+                        strOut= "ko";
+                        break;
+                    case 37:
+                        strOut= "la";
+                        break;
+                    case 38:
+                        strOut= "lv";
+                        break;
+                    case 39:
+                        strOut= "lt";
+                        break;
+                    case 40:
+                        strOut= "mk";
+                        break;
+                    case 41:
+                        strOut= "ms";
+                        break;
+                    case 42:
+                        strOut= "mt";
+                        break;
+                    case 43:
+                        strOut= "no";
+                        break;
+                    case 44:
+                        strOut= "fa";
+                        break;
+                    case 45:
+                        strOut= "pl";
+                        break;
+                    case 46:
+                        strOut= "pt";
+                        break;
+                    case 47:
+                        strOut= "ro";
+                        break;
+                    case 48:
+                        strOut= "ru";
+                        break;
+                    case 49:
+                        strOut= "sr";
+                        break;
+                    case 50:
+                        strOut= "sk";
+                        break;
+                    case 51:
+                        strOut= "sl";
+                        break;
+                    case 52:
+                        strOut= "es";
+                        break;
+                    case 53:
+                        strOut= "sw";
+                        break;
+                    case 54:
+                        strOut= "sv";
+                        break;
+                    case 55:
+                        strOut= "ta";
+                        break;
+                    case 56:
+                        strOut= "te";
+                        break;
+                    case 57:
+                        strOut= "th";
+                        break;
+                    case 58:
+                        strOut= "tr";
+                        break;
+                    case 59:
+                        strOut= "uk";
+                        break;
+                    case 60:
+                        strOut= "ur";
+                        break;
+                    case 61:
+                        strOut= "vi";
+                        break;
+                    case 62:
+                        strOut= "cy";
+                        break;
+                    case 64:
+                        strOut= "yi";
+                        break;
+                    case 65:
+                        strOut= "zh-CN";
+                        break;
+                    case 66:
+                        strOut= "zh-TW";
+                        break;
+                }
+
+
+                }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -527,7 +728,13 @@ public class HomeFragment extends Fragment {
       editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ThemActivity.class));
+                String putString=strIn;
+                String putStringout=strOut;
+                Intent i=new Intent(getActivity(),ThemActivity.class);
+                i.putExtra("langin",putString);
+                i.putExtra("langout",putStringout);
+                startActivity(i);
+
             }
         });
 
@@ -572,10 +779,8 @@ public class HomeFragment extends Fragment {
              }
         });
 //end Chức năng dịch chữ
-
         getListView();
         return root;
-
     }
     //end oncreateview
 
