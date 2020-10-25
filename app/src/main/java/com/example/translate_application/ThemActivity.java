@@ -47,13 +47,13 @@ public class ThemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_text);
-        //anhxa
+        //anh xa
         btnclose = findViewById(R.id.ext_home);
         result = findViewById(R.id.resultbtn);
 
         nhapVB=findViewById(R.id.NhapVB);
         Bandich=findViewById(R.id.BanDich);
-        //endanhxa
+        //end anh xa
 
         Mywords=getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
 
@@ -61,10 +61,12 @@ public class ThemActivity extends AppCompatActivity {
         MyAccount=getApplicationContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
         tentaikhoan=MyAccount.getString("id","");
         //end local key
+
         //database
         databaseHelper = new DatabaseHelper(this,"Translate2.sqlite",null,1);
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
         //end database
+
         nhapVB.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -76,10 +78,7 @@ public class ThemActivity extends AppCompatActivity {
                 if(nhapVB.getText().toString().equals("")){
                     Toast.makeText(ThemActivity.this, "null", Toast.LENGTH_SHORT).show();
                 }else{
-
-
                         handleSynonym(nhapVB.getText().toString());
-
                         TranslateAPI translateAPI = new TranslateAPI(
                                 "auto",
                                 "af", nhapVB.getText().toString());
@@ -95,19 +94,12 @@ public class ThemActivity extends AppCompatActivity {
 
                             }
                         });
-                }
-
-
-            }
-
+                } }
             @Override
             public void afterTextChanged(Editable s) {
 
             }
         });
-
-
-
         btnclose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,15 +120,12 @@ public class ThemActivity extends AppCompatActivity {
             }
 
         });
-
-
     }
 
     private void handleSynonym(String str) {
         request_syn = api_url+syn+str+max_results;
         new DatamuseQuery(request_syn, "synonym").execute();
     }
-
     private void fill_List(ArrayList<String> results, String list_name) {
 
         if (list_name.equals("synonym"))
@@ -196,13 +185,10 @@ public class ThemActivity extends AppCompatActivity {
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void voids) {
             //calling a Activity method to fill the tables with results
             fill_List(words, list_name);
         }
     }
-
-
 }
