@@ -74,40 +74,44 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
+        final String TAG = "MainActivity";
+        //database
         databaseHelper = new DatabaseHelper(getActivity(),"Translate2.sqlite",null,1);
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
+        //end database
+        editText = root.findViewById(R.id.editText);
+        //ánh xạ
+        editText = root.findViewById(R.id.editText);
+        textView = root.findViewById(R.id.result);
+        ImageView translateButton = root.findViewById(R.id.resultbtn);
+        final ImageView voicebtn=root.findViewById(R.id.voice);
+        camera = root.findViewById(R.id.Camera);
+        final Spinner spinner = (Spinner) root.findViewById(R.id.spinner);
+        //end ánh xạ
+
+        //khai báo arraylist
         arrayList = new ArrayList<>();
         listView = root.findViewById(R.id.historylist);
-
-        final String TAG = "MainActivity";
-        editText = root.findViewById(R.id.editText);
-
         Adapter =  new CustomAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
         listView.setAdapter(Adapter);
+        //end arraylist
 
         //local key
         MyAccount=getContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
         tentaikhoan=MyAccount.getString("id","");
         //end local key
 
+        //hàm onclick dịch
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(),ThemActivity.class));
             }
         });
+        //end hàm onclick dịch
 
-
-        editText = root.findViewById(R.id.editText);
-       textView = root.findViewById(R.id.result);
-        ImageView translateButton = root.findViewById(R.id.resultbtn);
-
-        final ImageView voicebtn=root.findViewById(R.id.voice);
-        camera = root.findViewById(R.id.Camera);
-
-        final Spinner spinner = (Spinner) root.findViewById(R.id.spinner);
-
+        //khai báo Spinner
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
@@ -147,8 +151,7 @@ public class HomeFragment extends Fragment {
                 // On selecting a spinner item
                 String item = parent.getItemAtPosition(position).toString();
 
-                // Showing selected spinner item
-                Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+              strIn=item;
             }
 
             @Override
@@ -157,11 +160,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //end khai báo spinner
 
-
-
-
-// swipe trên listview
+        // swipe trên listview
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -201,7 +202,6 @@ public class HomeFragment extends Fragment {
 
 // thao tac trên list view
         listView.setMenuCreator(creator);
-
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int i, SwipeMenu menu, int index) {
@@ -233,6 +233,7 @@ public class HomeFragment extends Fragment {
         listView.setCloseInterpolator(new BounceInterpolator());
 // Open Interpolator
         //listView.setOpenInterpolator(...);
+
         //end thao tac trên listview
 
         //camera
@@ -306,54 +307,15 @@ public class HomeFragment extends Fragment {
         });
 //end Chức năng dịch chữ
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-
-      }
-
-        }
-
-        );
-
-      listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-              /* index = i;
-                final int a = arrayList.get(index).getId();
-                final String tucandich = arrayList.get(index).getTuCanDich();
-                final String bandich = arrayList.get(index).getBanDich();
-
-                PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        switch (menuItem.getItemId()){
-                            case R.id.delete:
-                                DialogXoa(a);
-                                break;
-
-                        }
-                        return false;
-                    }
-                });
-
-                popupMenu.show();*/
-                return false;
-            }
-        });
-
-
         getListView();
         return root;
-    }//end oncreateview
+
+    }
+    //end oncreateview
 
 
-    //listview tu vung
+    //hàm xổ listview Lich Sử
     public void getListView(){
-
-
-
         Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung where Taikhoan='"+tentaikhoan+"' ORDER BY Id DESC ");
         arrayList.clear();
         if (cursor != null) {
@@ -366,49 +328,8 @@ public class HomeFragment extends Fragment {
                 ));
             }
         }
-
         Adapter.notifyDataSetChanged();
-    Log.d("don","ad");
-
     }
- /*   public void DialogXoa(final int id){
-        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getActivity());
-        dialogXoa.setMessage("Bạn muốn xóa video này? ");
-        dialogXoa.setPositiveButton("Đồng Ý", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                databaseHelper.QueryData("DELETE FROM TuVung WHERE Id = '"+ id +"'");
-                arrayList.clear();
-                getListView();
-
-
-            }
-        });
-        dialogXoa.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        getListView();
-        dialogXoa.show();
-    }*/
-   /* public void DialogThem(){
-//        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getActivity());
-
-    }*/
-//        @Override
-//        public void onResume() {
-//
-//            Mywords = getActivity().getApplicationContext().getSharedPreferences("words", MODE_PRIVATE);
-//            KeyWord = Mywords.getString("kw", "");
-//            editText.setText(KeyWord);
-//
-//            getListView();
-//
-//
-//            super.onResume();
-//        }
-
+    //end hàm xổ listview Lịch Sử
 
 }
