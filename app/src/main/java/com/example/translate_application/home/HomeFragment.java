@@ -111,12 +111,25 @@ public class HomeFragment extends Fragment {
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
-        categories.add("Item 1");
-        categories.add("Item 2");
-        categories.add("Item 3");
-        categories.add("Item 4");
-        categories.add("Item 5");
-        categories.add("Item 6");
+        categories.add("AUTO DETECT");
+        categories.add("AFRIKAANS");
+        categories.add("ALBANIAN");
+        categories.add("ARABIC");
+        categories.add("ARMENIAN");
+        categories.add("AZERBAIJANI");
+        categories.add("BASQUE");
+        categories.add("BELARUSIAN");
+        categories.add("BENGALI");
+        categories.add("BULGARIAN");
+        categories.add("CATALAN");
+        categories.add("CHINESE");
+        categories.add("CROATIAN");
+        categories.add("CZECH");
+        categories.add("DANISH");
+        categories.add("DUTCH");
+        categories.add("ENGLISH");
+        categories.add("ESTONIAN");
+        categories.add("FILIPINO");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
