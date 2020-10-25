@@ -39,10 +39,10 @@ public class ThemActivity extends AppCompatActivity {
     String api_url = "https://api.datamuse.com/words?";
     String syn = "rel_syn=";
     String max_results = "&max=30";
-    String request_syn;
+    String request_syn,tentaikhoan;
     ListView list;
     DatabaseHelper databaseHelper;
-    SharedPreferences Mywords;
+    SharedPreferences Mywords,MyAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +56,13 @@ public class ThemActivity extends AppCompatActivity {
 
         Mywords=getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
 
-        databaseHelper = new DatabaseHelper(this,"Translate.sqlite",null,1);
-        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250))");
+        //local key
+        MyAccount=getApplicationContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
+        tentaikhoan=MyAccount.getString("id","");
+        //end local key
+
+        databaseHelper = new DatabaseHelper(this,"Translate2.sqlite",null,1);
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
 
         nhapVB.addTextChangedListener(new TextWatcher() {
             @Override
@@ -128,7 +133,7 @@ public class ThemActivity extends AppCompatActivity {
                 myeditor.putString("kw", nhapVB.getText().toString());
                 myeditor.commit();
 
-                databaseHelper.Uploaddata("insert into TuVung values(null,'" + nhapVB.getText().toString() +  "','" + Bandich.getText().toString() +  "')");
+                databaseHelper.Uploaddata("insert into TuVung values(null,'" + nhapVB.getText().toString() +  "','" + Bandich.getText().toString() +  "','"+ tentaikhoan +"')");
 
                 startActivity(new Intent(ThemActivity.this,MainActivity.class));
             }

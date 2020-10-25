@@ -20,12 +20,13 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         >
-        <TextView
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:text="Lang"
+
             android:drawableEnd="@drawable/ic_drop"
             android:textAlignment="viewEnd"
             android:layout_marginTop="30dp"
@@ -33,7 +34,7 @@
             android:textStyle="bold"
             android:textSize="25sp"
             android:textColor="#3E8EEF"
-            android:drawableRight="@drawable/ic_drop"
+
             tools:ignore="RtlCompat" />
         <TextView
             android:layout_marginLeft="20dp"

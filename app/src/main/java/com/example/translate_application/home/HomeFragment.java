@@ -20,9 +20,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +49,7 @@ import com.example.translate_application.VoiceActivity;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -53,7 +57,7 @@ public class HomeFragment extends Fragment {
     boolean check =false;
     TextView textView,editText;
     SharedPreferences Mywords;
-    String KeyWord;
+    String KeyWord,strIn,strOut,tentaikhoan;
     SharedPreferences MyAccount;
     private HomeViewModel homeViewModel;
 
@@ -70,9 +74,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
-        databaseHelper = new DatabaseHelper(getActivity(),"Translate.sqlite",null,1);
-        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250))");
-        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250))");
+        databaseHelper = new DatabaseHelper(getActivity(),"Translate2.sqlite",null,1);
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
         arrayList = new ArrayList<>();
         listView = root.findViewById(R.id.historylist);
 
@@ -82,6 +86,11 @@ public class HomeFragment extends Fragment {
         Adapter =  new CustomAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
         listView.setAdapter(Adapter);
 
+        //local key
+        MyAccount=getContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
+        tentaikhoan=MyAccount.getString("id","");
+        //end local key
+
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,12 +98,55 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         editText = root.findViewById(R.id.editText);
        textView = root.findViewById(R.id.result);
         ImageView translateButton = root.findViewById(R.id.resultbtn);
 
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
+
+        final Spinner spinner = (Spinner) root.findViewById(R.id.spinner);
+
+
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("Item 1");
+        categories.add("Item 2");
+        categories.add("Item 3");
+        categories.add("Item 4");
+        categories.add("Item 5");
+        categories.add("Item 6");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+
+        // Spinner click listener
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // On selecting a spinner item
+                String item = parent.getItemAtPosition(position).toString();
+
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
 
 // swipe trên listview
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -147,7 +199,7 @@ public class HomeFragment extends Fragment {
 
                         final String tuvung = arrayList.get(index).getTuCanDich();
                         final String bandich = arrayList.get(index).getBanDich();
-                        databaseHelper.QueryData("INSERT Into SaveWordBook Values (NULL, '"+ tuvung + "','"+ bandich+"') ");
+                        databaseHelper.QueryData("INSERT Into SaveWordBook Values (NULL, '"+ tuvung + "','"+ bandich+"','"+ tentaikhoan +"') ");
                         break;
                     case 1:
                         index = i;
@@ -213,8 +265,8 @@ public class HomeFragment extends Fragment {
 
 
                 TranslateAPI translateAPI = new TranslateAPI(
-                        Language.AUTO_DETECT,
-                        Language.VIETNAMESE, editText.getText().toString());
+                        strIn,
+                        strOut, editText.getText().toString());
 
                 translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
                     @Override
@@ -286,7 +338,10 @@ public class HomeFragment extends Fragment {
 
     //listview tu vung
     public void getListView(){
-        Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung ORDER BY Id DESC ");
+
+
+
+        Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung where Taikhoan='"+tentaikhoan+"' ORDER BY Id DESC ");
         arrayList.clear();
         if (cursor != null) {
             while (cursor.moveToNext()){

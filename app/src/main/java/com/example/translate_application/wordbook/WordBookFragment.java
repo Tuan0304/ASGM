@@ -1,5 +1,6 @@
 package com.example.translate_application.wordbook;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -35,11 +36,14 @@ import com.example.translate_application.WordBookAdapter;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class WordBookFragment extends Fragment {
 SwipeMenuListView listView;
 ArrayList<SaveWordBook> arrayList;
 WordBookAdapter adapter;
+    SharedPreferences MyAccount;
 public  static DatabaseHelper databaseHelper;
 int index=1;
 
@@ -49,9 +53,9 @@ int index=1;
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_wordbook, container, false);
-        databaseHelper = new DatabaseHelper(getActivity(),"Translate.sqlite",null,1);
-        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250))");
-        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250))");
+        databaseHelper = new DatabaseHelper(getActivity(),"Translate2.sqlite",null,1);
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
 
         listView =  root.findViewById(R.id.lvWordBook);
          arrayList = new ArrayList<>();
@@ -119,7 +123,13 @@ int index=1;
         return root;
     }
     public void getListView(){
-        Cursor cursor = databaseHelper.GetData("SELECT * FROM SaveWordBook ORDER BY Id DESC");
+        //local key
+        MyAccount=getContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
+        String tentaikhoan=MyAccount.getString("id","");
+        //end local key
+
+
+        Cursor cursor = databaseHelper.GetData("SELECT * FROM SaveWordBook where Taikhoan='"+tentaikhoan+"' ORDER BY Id DESC");
         arrayList.clear();
         if (cursor != null) {
             while (cursor.moveToNext()){
