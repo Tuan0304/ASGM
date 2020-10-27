@@ -1,5 +1,6 @@
 package com.example.translate_application;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -39,6 +40,7 @@ public class TranslateAPI {
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     class Async extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... strings) {

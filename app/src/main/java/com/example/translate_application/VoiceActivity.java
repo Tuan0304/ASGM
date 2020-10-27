@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class VoiceActivity extends AppCompatActivity {
     public static final Integer RecordAudioRequestCode=1;
     SharedPreferences Mywords;
+    DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,12 @@ public class VoiceActivity extends AppCompatActivity {
         final SpeechOrbView voicemic=findViewById(R.id.voiceorb);
 
         Mywords=getApplicationContext().getSharedPreferences("words",MODE_PRIVATE);
+
+        //database
+        databaseHelper = new DatabaseHelper(this,"Translate2.sqlite",null,1);
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
+        //end database
+
 
         if(ContextCompat.checkSelfPermission(VoiceActivity.this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             checkPermission();
@@ -95,8 +102,6 @@ public class VoiceActivity extends AppCompatActivity {
                 myeditor.commit();
 
                 finish();
-
-
             }
 
             @Override

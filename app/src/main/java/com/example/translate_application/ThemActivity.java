@@ -128,7 +128,7 @@ public class ThemActivity extends AppCompatActivity {
 
                 databaseHelper.Uploaddata("insert into TuVung values(null,'" + nhapVB.getText().toString() +  "','" + Bandich.getText().toString() +  "','"+ tentaikhoan +"')");
 
-                startActivity(new Intent(ThemActivity.this,MainActivity.class));
+              finish();
             }
 
         });

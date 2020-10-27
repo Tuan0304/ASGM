@@ -93,7 +93,6 @@ int index=1;
             }
         };
         listView.setMenuCreator(creator);
-
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int i, SwipeMenu menu, int index) {
@@ -102,7 +101,6 @@ int index=1;
                         index = i;
                         databaseHelper.QueryData("Delete from SaveWordBook where Id = '" + arrayList.get(index).IdTuVung + "'");
                         getListView();
-
                         break;
                     case 1:
                         // delete

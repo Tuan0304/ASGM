@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,14 +60,14 @@ public class HomeFragment extends Fragment {
     SharedPreferences Mywords;
     String KeyWord,strIn,strOut,tentaikhoan;
     SharedPreferences MyAccount;
-    private HomeViewModel homeViewModel;
+
 
     TextView camera;
     CustomAdapter Adapter;
     public static DatabaseHelper databaseHelper;
     ArrayList<TuVung> arrayList;
     SwipeMenuListView listView;
-    int index = 1;
+
 
 
 
@@ -81,27 +82,35 @@ public class HomeFragment extends Fragment {
         databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
         //end database
 
+        //local key
+        MyAccount=getContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
+        tentaikhoan=MyAccount.getString("id","");
+        //end local key
+
         //ánh xạ
+         strIn="auto";
+         strOut="vi";
         editText = root.findViewById(R.id.editText);
         textView = root.findViewById(R.id.result);
         ImageView translateButton = root.findViewById(R.id.resultbtn);
+        ImageView eraseButton = root.findViewById(R.id.erase);
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
+        listView = root.findViewById(R.id.historylist);
         final Spinner spinnerIn = (Spinner) root.findViewById(R.id.spinnerin);
         final Spinner spinnerOut = (Spinner) root.findViewById(R.id.spinnerout);
         //end ánh xạ
 
         //khai báo arraylist
         arrayList = new ArrayList<>();
-        listView = root.findViewById(R.id.historylist);
         Adapter =  new CustomAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
         listView.setAdapter(Adapter);
         //end arraylist
 
-        //local key
+      /*  //local key
         MyAccount=getContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
         tentaikhoan=MyAccount.getString("id","");
-        //end local key
+        //end local key*/
 
         //hàm onclick dịch
         editText.setOnClickListener(new View.OnClickListener() {
@@ -183,16 +192,85 @@ public class HomeFragment extends Fragment {
         categories.add("CHINESE_SIMPLIFIED");
         categories.add("CHINESE_TRADITIONAL");
 
+        List<String> categories2 = new ArrayList<String>();
+        categories2.add("VIETNAMESE");
+        categories2.add("AFRIKAANS");
+        categories2.add("ALBANIAN");
+        categories2.add("ARABIC");
+        categories2.add("ARMENIAN");
+        categories2.add("AZERBAIJANI");
+        categories2.add("BASQUE");
+        categories2.add("BELARUSIAN");
+        categories2.add("BENGALI");
+        categories2.add("BULGARIAN");
+        categories2.add("CATALAN");
+        categories2.add("CHINESE");
+        categories2.add("CROATIAN");
+        categories2.add("CZECH");
+        categories2.add("DANISH");
+        categories2.add("DUTCH");
+        categories2.add("ENGLISH");
+        categories2.add("ESTONIAN");
+        categories2.add("FILIPINO");
+        categories2.add("FINNISH");
+        categories2.add("FRENCH");
+        categories2.add("GALICIAN");
+        categories2.add("GEORGIAN");
+        categories2.add("GERMAN");
+        categories2.add("GREEK");
+        categories2.add("GUJARATI");
+        categories2.add("HAITIAN_CREOLE");
+        categories2.add("HEBREW");
+        categories2.add("HINDI");
+        categories2.add("HUNGARIAN");
+        categories2.add("ICELANDIC");
+        categories2.add("INDONESIAN");
+        categories2.add("IRISH");
+        categories2.add("ITALIAN");
+        categories2.add("JAPANESE");
+        categories2.add("KANNADA");
+        categories2.add("KOREAN");
+        categories2.add("LATIN");
+        categories2.add("LATVIAN");
+        categories2.add("LITHUANIAN");
+        categories2.add("MACEDONIAN");
+        categories2.add("MALAY");
+        categories2.add("MALTESE");
+        categories2.add("NORWEGIAN");
+        categories2.add("PERSIAN");
+        categories2.add("POLISH");
+        categories2.add("PORTUGUESE");
+        categories2.add("ROMANIAN");
+        categories2.add("RUSSIAN");
+        categories2.add("SERBIAN");
+        categories2.add("SLOVAK");
+        categories2.add("SLOVENIAN");
+        categories2.add("SPANISH");
+        categories2.add("SWAHILI");
+        categories2.add("SWEDISH");
+        categories2.add("TAMIL");
+        categories2.add("TELUGU");
+        categories2.add("THAI");
+        categories2.add("TURKISH");
+        categories2.add("UKRAINIAN");
+        categories2.add("URDU");
+        categories2.add("VIETNAMESE");
+        categories2.add("WELSH");
+        categories2.add("YIDDISH");
+        categories2.add("CHINESE_SIMPLIFIED");
+        categories2.add("CHINESE_TRADITIONAL");
+
+
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_text, categories);
-
+        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(getActivity(),R.layout.spinner_text, categories2);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
-
+        dataAdapter2.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         // attaching data adapter to spinner
         spinnerIn.setAdapter(dataAdapter);
-        spinnerOut.setAdapter(dataAdapter);
+        spinnerOut.setAdapter(dataAdapter2);
 
         // Spinner click listener
         spinnerIn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -415,10 +493,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
-                String item = parent.getItemAtPosition(position).toString();
+
                 switch (position) {
                     case 0:
-                        strOut = "auto";
+                        strOut = "vi";
                         break;
                     case 1:
                         strOut = "af";
@@ -601,7 +679,7 @@ public class HomeFragment extends Fragment {
                         strOut= "ur";
                         break;
                     case 61:
-                        strOut= "vi";
+                        strOut= "vi2";
                         break;
                     case 62:
                         strOut= "cy";
@@ -625,13 +703,15 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-
         //end khai báo spinner
 
         // swipe trên listview
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
+        listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
 
+        listView.setCloseInterpolator(new BounceInterpolator());
+        listView.setOpenInterpolator(new AccelerateDecelerateInterpolator());
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
             @Override
             public void create(SwipeMenu menu) {
                 // create "open" item
@@ -676,30 +756,34 @@ public class HomeFragment extends Fragment {
                     case 0:
                         // open
                         index = i;
-
                         final String tuvung = arrayList.get(index).getTuCanDich();
                         final String bandich = arrayList.get(index).getBanDich();
                         databaseHelper.QueryData("INSERT Into SaveWordBook Values (NULL, '"+ tuvung + "','"+ bandich+"','"+ tentaikhoan +"') ");
                         break;
                     case 1:
                         index = i;
-                        Log.d("tag",""+index);
                         databaseHelper.QueryData("Delete from TuVung where Id = '" + arrayList.get(index).Id + "'");
-                       getListView();
-
-
+                        getListView();
                         break;
                 }
                 // false : close the menu; true : not close the menu
+
                 return false;
+
             }
         });
-        listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
+        listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+            @Override
+            public void onSwipeStart(int position) {
 
-        // Close Interpolator
-        listView.setCloseInterpolator(new BounceInterpolator());
-// Open Interpolator
-        //listView.setOpenInterpolator(...);
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+                listView.smoothOpenMenu(position);
+            }
+        });
+
 
         //end thao tac trên listview
 
@@ -722,6 +806,27 @@ public class HomeFragment extends Fragment {
         });
 
         //end-speech to text function
+
+        translateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseHelper.Uploaddata("insert into TuVung values(null,'" + editText.getText().toString() +  "','" + textView.getText().toString() +  "','"+ tentaikhoan +"')");
+                getListView();
+            }
+        });
+
+        eraseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              editText.setText("");
+              textView.setText("");
+                Mywords=getContext().getSharedPreferences("words",MODE_PRIVATE);
+                SharedPreferences.Editor myeditor = Mywords.edit();
+                myeditor.remove("kw");
+                myeditor.commit();
+            }
+        });
+
 
 
 //Tuan-Chuc năng dich chữ:
@@ -746,47 +851,51 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
                 if(editText.getText().toString().equals("")){
                     Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
                 }else{
+                    TranslateAPI translateAPI = new TranslateAPI(
+                            strIn,
+                            strOut, editText.getText().toString());
 
+                    translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
+                        @Override
+                        public void onSuccess(String translatedText) {
+                            textView.setText(translatedText);
+                        }
 
-                TranslateAPI translateAPI = new TranslateAPI(
-                        strIn,
-                        strOut, editText.getText().toString());
-
-                translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
-                    @Override
-                    public void onSuccess(String translatedText) {
-                        textView.setText(translatedText);
-
-                    }
-
-                    @Override
-                    public void onFailure(String ErrorText) {
-                        Log.d(TAG, "onFailure: "+ErrorText);
-                    }
-                }); } }
+                        @Override
+                        public void onFailure(String ErrorText) {
+                            Log.d(TAG, "onFailure: "+ErrorText);
+                        }
+                    }); }
+                }
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
 
-        translateButton.setOnClickListener(new View.OnClickListener() {
-         @Override
-            public void onClick(View v) {
 
-             }
-        });
 //end Chức năng dịch chữ
         getListView();
         return root;
     }
     //end oncreateview
+    @Override
+    public void onResume() {
+        Mywords=getContext().getSharedPreferences("words",MODE_PRIVATE);
+        KeyWord=Mywords.getString("kw","");
+        editText.setText(KeyWord);
+        getListView();
+        super.onResume();
+    }
 
 
     //hàm xổ listview Lich Sử
     public void getListView(){
+
+
         Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung where Taikhoan='"+tentaikhoan+"' ORDER BY Id DESC ");
         arrayList.clear();
         if (cursor != null) {
@@ -802,5 +911,6 @@ public class HomeFragment extends Fragment {
         Adapter.notifyDataSetChanged();
     }
     //end hàm xổ listview Lịch Sử
+
 
 }
