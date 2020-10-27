@@ -85,9 +85,9 @@ int index=1;
                 deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
                         0x3F, 0x25)));
                 // set item width
-                deleteItem.setWidth(250);
+                deleteItem.setWidth(350);
                 // set a icon
-                deleteItem.setIcon(R.drawable.ic_dont_close);
+               // deleteItem.setIcon(R.drawable.ic_dont_close);
                 // add to menu
                 menu.addMenuItem(deleteItem);
             }
@@ -98,9 +98,9 @@ int index=1;
             public boolean onMenuItemClick(int i, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        index = i;
+                       /* index = i;
                         databaseHelper.QueryData("Delete from SaveWordBook where Id = '" + arrayList.get(index).IdTuVung + "'");
-                        getListView();
+                        getListView();*/
                         break;
                     case 1:
                         // delete
@@ -114,13 +114,13 @@ int index=1;
         listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
             @Override
             public void onSwipeStart(int position) {
-
+                databaseHelper.QueryData("Delete from SaveWordBook where Id = '" + arrayList.get(index).IdTuVung + "'");
             }
 
             @Override
             public void onSwipeEnd(int position) {
                 listView.smoothOpenMenu(position);
-                Toast.makeText(getActivity(), "delete", Toast.LENGTH_SHORT).show();
+                getListView();
             }
         });
 
