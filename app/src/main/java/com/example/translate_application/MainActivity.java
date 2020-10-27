@@ -99,26 +99,7 @@ public class MainActivity extends AppCompatActivity  {
         //showmenu
         //end fragment
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-                getMenuInflater().inflate(R.menu.logout, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.action_logout){
-            SharedPreferences preferences = getSharedPreferences("CusACCC",MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();
-            editor.apply();
-            finish();
-            Intent list=new Intent(MainActivity.this,Manhinhchao.class);
-            startActivity(list);
 
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
 //hostfragmentview(homefragment)
