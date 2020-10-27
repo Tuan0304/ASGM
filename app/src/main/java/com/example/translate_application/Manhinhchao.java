@@ -38,8 +38,6 @@ public class Manhinhchao extends AppCompatActivity {
         if(IDlogin!="" && PASSlogin!=""){
             finish();
             Intent list=new Intent(Manhinhchao.this,MainActivity.class);
-
-
             startActivity(list);
         }
         //end tự đăng nhập

@@ -88,13 +88,13 @@ public class DangNhap extends AppCompatActivity {
 
                     if(dataselect.getCount()>0) {
                         SharedPreferences.Editor myeditor = MyAccount.edit();
-
-
                             myeditor.putString("id", TenID);
                             myeditor.putString("pass", MatKhau);
                             myeditor.commit();
+
                         Animation shake = AnimationUtils.loadAnimation(DangNhap.this, R.anim.shake2);
                         view.startAnimation(shake);
+
                             Intent list = new Intent(DangNhap.this, MainActivity.class);
                             startActivity(list);
                             finish();
