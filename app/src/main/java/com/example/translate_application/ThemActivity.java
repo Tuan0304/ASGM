@@ -123,12 +123,16 @@ public class ThemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
               SharedPreferences.Editor myeditor = Mywords.edit();
-                myeditor.putString("kw", nhapVB.getText().toString());
-                myeditor.commit();
+              if (nhapVB.length()>0) {
+                  myeditor.putString("kw", nhapVB.getText().toString());
+                  myeditor.commit();
 
-                databaseHelper.Uploaddata("insert into TuVung values(null,'" + nhapVB.getText().toString() +  "','" + Bandich.getText().toString() +  "','"+ tentaikhoan +"')");
+                  databaseHelper.Uploaddata("insert into TuVung values(null,'" + nhapVB.getText().toString() + "','" + Bandich.getText().toString() + "','" + tentaikhoan + "')");
 
-              finish();
+                  finish();
+              }else{
+                  Toast.makeText(ThemActivity.this, "Không được để trống", Toast.LENGTH_SHORT).show();
+              }
             }
 
         });

@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -62,6 +64,8 @@ public class HomeFragment extends Fragment {
     SharedPreferences MyAccount;
 
 
+
+
     TextView camera;
     CustomAdapter Adapter;
     public static DatabaseHelper databaseHelper;
@@ -86,6 +90,8 @@ public class HomeFragment extends Fragment {
         MyAccount=getContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
         tentaikhoan=MyAccount.getString("id","");
         //end local key
+
+
 
         //ánh xạ
          strIn="auto";
@@ -673,8 +679,14 @@ public class HomeFragment extends Fragment {
         translateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (editText.length()>0) {
+
+
                 databaseHelper.Uploaddata("insert into TuVung values(null,'" + editText.getText().toString() +  "','" + textView.getText().toString() +  "','"+ tentaikhoan +"')");
                 getListView();
+                }else {
+                    Toast.makeText(getActivity(), "Không được để trống", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

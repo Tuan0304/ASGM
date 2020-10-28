@@ -3,6 +3,8 @@ package com.example.translate_application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -40,7 +42,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity  {
-
+    ConnectivityManager connectivityManager;
+    NetworkInfo WIFI,my3G;
     private AppBarConfiguration mAppBarConfiguration;
     ImageView logout;
 
@@ -64,21 +67,20 @@ public class MainActivity extends AppCompatActivity  {
         });
 
 
+        connectivityManager = (ConnectivityManager ) getSystemService(CONNECTIVITY_SERVICE);
+        WIFI = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        my3G = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if (WIFI != null && WIFI.isConnected()) {
+            Toast.makeText(this, "Wifi", Toast.LENGTH_SHORT).show();
+        }
+        else if (my3G != null && my3G.isConnected()) {
+            Toast.makeText(this, "3G", Toast.LENGTH_SHORT).show();
+        }
 
 
         //end anhxa
-//        logout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                SharedPreferences preferences = getSharedPreferences("CusACCC",MODE_PRIVATE);
-//                SharedPreferences.Editor editor = preferences.edit();
-//                editor.clear();
-//                editor.apply();
-//                finish();
-//                Intent list=new Intent(MainActivity.this,Manhinhchao.class);
-//                startActivity(list);
-//            }
-//        });
+//
 
         //fragment
         setSupportActionBar(toolbar);
