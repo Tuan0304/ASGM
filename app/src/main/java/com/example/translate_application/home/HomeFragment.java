@@ -118,9 +118,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onInit(int i) {
                 if (i == TextToSpeech.SUCCESS){
+                    Log.d("fss","alooooooooo");
                     int result = mTTs.setLanguage(Locale.ENGLISH);
-                    if (i == TextToSpeech.LANG_MISSING_DATA || i == TextToSpeech.LANG_NOT_SUPPORTED){
-                        Log.e("TTS", "Language not supported");
+                    int cns = mTTs.setLanguage(Locale.CHINA);
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED||cns == TextToSpeech.LANG_MISSING_DATA){
+                        Toast.makeText(getActivity(), "Language not supported", Toast.LENGTH_SHORT).show();
                     }else {
                         speech.setEnabled(true);
                     }
