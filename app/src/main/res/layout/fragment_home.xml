@@ -69,15 +69,15 @@
                 >
 
                 <EditText
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
                     android:id="@+id/editText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="5"
-                    android:textSize="25sp"
                     android:backgroundTint="@android:color/white"
-                    android:hint="Nhấn để nhập văn bản" />
+                    android:hint="Nhấn để nhập văn bản"
+                    android:textSize="25sp" />
 
                 <ImageView
                     android:id="@+id/erase"
