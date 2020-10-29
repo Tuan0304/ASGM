@@ -608,31 +608,6 @@ public class HomeFragment extends Fragment {
 
 // thao tac trên list view
         listView.setMenuCreator(creator);
-      /* listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int i, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        // open
-                        index = i;
-                        final String tuvung = arrayList.get(index).getTuCanDich();
-                        final String bandich = arrayList.get(index).getBanDich();
-                        databaseHelper.QueryData("INSERT Into SaveWordBook Values (NULL, '"+ tuvung + "','"+ bandich+"','"+ tentaikhoan +"') ");
-                        break;
-                    case 1:
-                        index = i;
-                        databaseHelper.QueryData("Delete from TuVung where Id = '" + arrayList.get(index).Id + "'");
-                        getListView();
-                        break;
-
-
-                }
-                // false : close the menu; true : not close the menu
-
-                return false;
-
-            }
-        });*/
         listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
             @Override
             public void onSwipeStart(int position) {
@@ -647,8 +622,6 @@ public class HomeFragment extends Fragment {
                 getListView();
             }
         });
-
-
         //end thao tac trên listview
 
         //camera
@@ -713,7 +686,7 @@ public class HomeFragment extends Fragment {
 
 
 //Tuan-Chuc năng dich chữ:
-      editText.setOnClickListener(new View.OnClickListener() {
+    /*  editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String putString=strIn;
@@ -724,7 +697,7 @@ public class HomeFragment extends Fragment {
                 startActivity(i);
 
             }
-        });
+        });*/
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override

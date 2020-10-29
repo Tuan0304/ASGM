@@ -24,7 +24,9 @@
         <activity android:name=".CameraScan" />
         <activity android:name=".DangNhap" />
         <activity android:name=".dangdkyact" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustNothing"
+            />
         <activity
             android:name=".Manhinhchao"
             android:label="@string/app_name"
