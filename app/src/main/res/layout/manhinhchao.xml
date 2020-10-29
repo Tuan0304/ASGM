@@ -8,23 +8,15 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     android:background="@android:color/white"
-    android:weightSum="8">
+    android:weightSum="10">
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
     <ImageView
-        android:id="@+id/loichao"
-        android:layout_width="match_parent"
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:gravity="center"
-        android:src="@drawable/logo"
-        android:textColor="@android:color/primary_text_light_nodisable"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+
+        />
 
     <!--    <com.spark.submitbutton.SubmitButton-->
 <!--        android:layout_width="match_parent"-->
@@ -54,6 +46,17 @@
 <!--        app:sub_btn_line_color="@android:color/holo_blue_bright"-->
 <!--        app:sub_btn_ripple_color="@android:color/holo_blue_bright"-->
 <!--        app:sub_btn_tick_color="@color/white" />-->
+
+    <ImageView
+        android:id="@+id/loichao"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:src="@drawable/logo"
+        android:textColor="@android:color/primary_text_light_nodisable"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/dkybtn"

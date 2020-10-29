@@ -201,7 +201,7 @@
         android:layout_weight="1"
         android:id="@+id/dkhoan"
 
-        android:text="Khi nhấn nút đăng ký, nghĩa là bạn đã đồng ý với Điều Khoản Dịch Vụ và Chính Sách Bảo Mật của Discord."
+        android:text="Khi nhấn nút đăng ký, nghĩa là bạn đã đồng ý với Điều Khoản Dịch Vụ và Chính Sách Bảo Mật của Google."
         android:textColor="#B5B8BD"
         android:layout_marginLeft="10dp"
         android:padding="5dp"
