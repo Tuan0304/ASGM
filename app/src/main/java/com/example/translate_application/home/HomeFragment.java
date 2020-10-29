@@ -81,9 +81,9 @@ public class HomeFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
         final String TAG = "MainActivity";
         //database
-        databaseHelper = new DatabaseHelper(getActivity(),"Translate2.sqlite",null,1);
-        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
-        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(150),LuuBanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
+        databaseHelper = new DatabaseHelper(getActivity(),"Translate3.sqlite",null,1);
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(500),BanDich VARCHAR(5000),TaiKhoan VARCHAR(50))");
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS SaveWordBook(Id INTEGER PRIMARY KEY AUTOINCREMENT, LuuTuVung VARCHAR(500),LuuBanDich VARCHAR(500),TaiKhoan VARCHAR(50))");
         //end database
 
         //local key

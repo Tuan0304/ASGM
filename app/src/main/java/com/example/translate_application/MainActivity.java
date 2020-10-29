@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dropdown_menu);
+        final Intent intent = new Intent(MainActivity.this,Wifichecked.class);
         //anhxa
         Toolbar toolbar = findViewById(R.id.toolbar);
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -71,11 +72,12 @@ public class MainActivity extends AppCompatActivity  {
         WIFI = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         my3G = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-        if (WIFI != null && WIFI.isConnected()) {
-            Toast.makeText(this, "Wifi", Toast.LENGTH_SHORT).show();
-        }
-        else if (my3G != null && my3G.isConnected()) {
-            Toast.makeText(this, "3G", Toast.LENGTH_SHORT).show();
+        if (WIFI != null && WIFI.isConnected() || my3G != null & my3G.isConnected()) {
+            Toast.makeText(this, "Internet Connect", Toast.LENGTH_SHORT).show();
+
+        }else  {
+            finish();
+            startActivity(intent);
         }
 
 
@@ -138,4 +140,6 @@ public class MainActivity extends AppCompatActivity  {
             });
                logoutDialog.show();
     }
+
+
 }

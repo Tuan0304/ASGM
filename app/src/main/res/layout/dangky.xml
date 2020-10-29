@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    android:background="@android:color/black"
+    android:background="@android:color/background_light"
     android:weightSum="8"
     >
 
@@ -20,7 +20,7 @@
 
         android:gravity="center"
         android:text="Đăng ký"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/primary_text_light_nodisable"
         android:textSize="30sp"
         android:textStyle="bold" />
     <TextView
@@ -30,7 +30,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="CHÚNG TÔI NÊN XƯNG HÔ VỚI BẠN NHƯ THẾ NÀO ĐÂY?"
-        android:textColor="#B5B8BD"
+        android:textColor="#3F4042"
         android:textSize="15sp"
         android:padding="5dp"
         android:gravity="center"/>
@@ -46,7 +46,7 @@
         android:layout_marginLeft="15dp"
         android:id="@+id/dkyid"
         android:layout_marginBottom="15dp"
-        app:cardBackgroundColor="#212226"
+        app:cardBackgroundColor="#fff"
         >
 
             <LinearLayout
@@ -60,7 +60,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:text="Tên đăng nhập"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/background_dark"
                     android:textSize="18sp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"/>
