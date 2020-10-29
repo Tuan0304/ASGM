@@ -114,12 +114,12 @@ public class HomeFragment extends Fragment {
         //end local key*/
 
         //hàm onclick dịch
-      /* editText.setOnClickListener(new View.OnClickListener() {
+      editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(),ThemActivity.class));
             }
-        });*/
+        });
         //end hàm onclick dịch
 
         //khai báo Spinner
@@ -647,26 +647,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (editText.length()>0) {
-                        TranslateAPI translateAPI = new TranslateAPI(
-                                strIn,
-                                strOut, editText.getText().toString());
-
-                        translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
-                            @Override
-                            public void onSuccess(String translatedText) {
-                                textView.setText(translatedText);
-                            }
-
-                            @Override
-                            public void onFailure(String ErrorText) {
-                                Log.d(TAG, "onFailure: "+ErrorText);
-                            }
-                        });
                         if(textView.length()>0){
                             databaseHelper.Uploaddata("insert into TuVung values(null,'" + editText.getText().toString() +  "','" + textView.getText().toString() +  "','"+ tentaikhoan +"')");
                         }
-
-
                 getListView();
                 }else {
                     Toast.makeText(getActivity(), "Không được để trống", Toast.LENGTH_SHORT).show();
@@ -689,7 +672,7 @@ public class HomeFragment extends Fragment {
 
 
 //Tuan-Chuc năng dich chữ:
-    /*  editText.setOnClickListener(new View.OnClickListener() {
+      editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String putString=strIn;
@@ -700,7 +683,7 @@ public class HomeFragment extends Fragment {
                 startActivity(i);
 
             }
-        });*/
+        });
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -710,7 +693,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                /*if(editText.getText().toString().equals("")){
+                if(editText.getText().toString().equals("")){
                     Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
                 }else{
                     TranslateAPI translateAPI = new TranslateAPI(
@@ -727,7 +710,7 @@ public class HomeFragment extends Fragment {
                         public void onFailure(String ErrorText) {
                             Log.d(TAG, "onFailure: "+ErrorText);
                         }
-                    }); }*/
+                    }); }
 
                 }
             @Override
@@ -746,7 +729,6 @@ public class HomeFragment extends Fragment {
         Mywords=getContext().getSharedPreferences("words",MODE_PRIVATE);
         KeyWord=Mywords.getString("kw","");
         editText.setText(KeyWord);
-        textView.setText("");
         getListView();
         super.onResume();
     }
@@ -754,8 +736,6 @@ public class HomeFragment extends Fragment {
 
     //hàm xổ listview Lich Sử
     public void getListView(){
-
-
         Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung where Taikhoan='"+tentaikhoan+"' ORDER BY Id DESC ");
         arrayList.clear();
         if (cursor != null) {

@@ -91,7 +91,7 @@ public class ThemActivity extends AppCompatActivity {
                     Toast.makeText(ThemActivity.this, "null", Toast.LENGTH_SHORT).show();
                 }else{
                         handleSynonym(nhapVB.getText().toString());
-                        TranslateAPI translateAPI = new TranslateAPI(
+                       /* TranslateAPI translateAPI = new TranslateAPI(
                                 strIn,
                                 strOut, nhapVB.getText().toString());
 
@@ -105,7 +105,7 @@ public class ThemActivity extends AppCompatActivity {
                             public void onFailure(String ErrorText) {
 
                             }
-                        });
+                        });*/
                 } }
             @Override
             public void afterTextChanged(Editable s) {
@@ -127,7 +127,7 @@ public class ThemActivity extends AppCompatActivity {
                   myeditor.putString("kw", nhapVB.getText().toString());
                   myeditor.commit();
 
-                  databaseHelper.Uploaddata("insert into TuVung values(null,'" + nhapVB.getText().toString() + "','" + Bandich.getText().toString() + "','" + tentaikhoan + "')");
+                  //databaseHelper.Uploaddata("insert into TuVung values(null,'" + nhapVB.getText().toString() + "','" + Bandich.getText().toString() + "','" + tentaikhoan + "')");
 
                   finish();
               }else{
