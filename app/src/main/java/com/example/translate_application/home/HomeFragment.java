@@ -677,6 +677,7 @@ public class HomeFragment extends Fragment {
                         TranslateAPI translateAPI = new TranslateAPI(
                                 strIn,
                                 strOut, editText.getText().toString());
+
                         translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
                             @Override
                             public void onSuccess(String translatedText) {
@@ -688,6 +689,7 @@ public class HomeFragment extends Fragment {
                                 Log.d(TAG, "onFailure: "+ErrorText);
                             }
                         });
+
                 databaseHelper.Uploaddata("insert into TuVung values(null,'" + editText.getText().toString() +  "','" + textView.getText().toString() +  "','"+ tentaikhoan +"')");
                 getListView();
                 }else {
@@ -732,7 +734,24 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(editText.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
+                }else{
+                    TranslateAPI translateAPI = new TranslateAPI(
+                            strIn,
+                            strOut, editText.getText().toString());
 
+                    translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
+                        @Override
+                        public void onSuccess(String translatedText) {
+                            textView.setText(translatedText);
+                        }
+
+                        @Override
+                        public void onFailure(String ErrorText) {
+                            Log.d(TAG, "onFailure: "+ErrorText);
+                        }
+                    }); }
 
                 }
             @Override
