@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
     SharedPreferences Mywords;
     String KeyWord,strIn,strOut,tentaikhoan;
     SharedPreferences MyAccount;
-    EditText editText;
+    TextView editText;
     TextView camera;
     CustomAdapter Adapter;
     public static DatabaseHelper databaseHelper;
