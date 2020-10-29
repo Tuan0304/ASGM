@@ -662,8 +662,11 @@ public class HomeFragment extends Fragment {
                                 Log.d(TAG, "onFailure: "+ErrorText);
                             }
                         });
+                        if(textView.length()>0){
+                            databaseHelper.Uploaddata("insert into TuVung values(null,'" + editText.getText().toString() +  "','" + textView.getText().toString() +  "','"+ tentaikhoan +"')");
+                        }
 
-                databaseHelper.Uploaddata("insert into TuVung values(null,'" + editText.getText().toString() +  "','" + textView.getText().toString() +  "','"+ tentaikhoan +"')");
+
                 getListView();
                 }else {
                     Toast.makeText(getActivity(), "Không được để trống", Toast.LENGTH_SHORT).show();
@@ -707,7 +710,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(editText.getText().toString().equals("")){
+                /*if(editText.getText().toString().equals("")){
                     Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
                 }else{
                     TranslateAPI translateAPI = new TranslateAPI(
@@ -724,7 +727,7 @@ public class HomeFragment extends Fragment {
                         public void onFailure(String ErrorText) {
                             Log.d(TAG, "onFailure: "+ErrorText);
                         }
-                    }); }
+                    }); }*/
 
                 }
             @Override
@@ -743,6 +746,7 @@ public class HomeFragment extends Fragment {
         Mywords=getContext().getSharedPreferences("words",MODE_PRIVATE);
         KeyWord=Mywords.getString("kw","");
         editText.setText(KeyWord);
+        textView.setText("");
         getListView();
         super.onResume();
     }
