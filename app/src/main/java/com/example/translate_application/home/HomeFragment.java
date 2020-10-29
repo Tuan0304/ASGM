@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -54,6 +55,7 @@ import com.example.translate_application.VoiceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -65,7 +67,9 @@ public class HomeFragment extends Fragment {
     SharedPreferences MyAccount;
     TextView editText;
     TextView camera;
+    TextView speech;
     CustomAdapter Adapter;
+    TextToSpeech mTTs;
     public static DatabaseHelper databaseHelper;
     ArrayList<TuVung> arrayList;
     SwipeMenuListView listView;
@@ -86,8 +90,9 @@ public class HomeFragment extends Fragment {
         //end local key
 
 
-
+//End đọc vb
         //ánh xạ
+
          strIn="auto";
          strOut="vi";
          switchLang=root.findViewById(R.id.switchLang);
@@ -97,6 +102,7 @@ public class HomeFragment extends Fragment {
         ImageView eraseButton = root.findViewById(R.id.erase);
         final ImageView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
+        speech = root.findViewById(R.id.speak);
         listView = root.findViewById(R.id.historylist);
         final Spinner spinnerIn = (Spinner) root.findViewById(R.id.spinnerin);
         final Spinner spinnerOut = (Spinner) root.findViewById(R.id.spinnerout);
@@ -107,6 +113,29 @@ public class HomeFragment extends Fragment {
         Adapter =  new CustomAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
         listView.setAdapter(Adapter);
         //end arraylist
+        //đọc vb
+        mTTs = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i == TextToSpeech.SUCCESS){
+                    int result = mTTs.setLanguage(Locale.ENGLISH);
+                    if (i == TextToSpeech.LANG_MISSING_DATA || i == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    }else {
+                        speech.setEnabled(true);
+                    }
+                }else {
+                    Log.e("TTS", "Language not supported");
+                }
+            }
+        });
+        speech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                speak();
+            }
+        });
+        //end đọc văn bản
 
       /*  //local key
         MyAccount=getContext().getSharedPreferences("CusACCC",MODE_PRIVATE);
@@ -733,6 +762,22 @@ public class HomeFragment extends Fragment {
         super.onResume();
     }
 
+    private void speak(){
+        String text = editText.getText().toString();
+
+
+        mTTs.speak(text, TextToSpeech.QUEUE_FLUSH,null);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mTTs != null){
+            mTTs.stop();
+            mTTs.shutdown();
+        }
+        super.onDestroy();
+
+    }
 
     //hàm xổ listview Lich Sử
     public void getListView(){

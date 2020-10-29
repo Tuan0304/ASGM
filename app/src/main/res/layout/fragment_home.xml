@@ -132,15 +132,17 @@
                     android:id="@+id/voice"
                     android:layout_weight="2"
                     android:layout_width="0dp"
+                    android:paddingTop="15dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_voiceoff"
                     />
                 <TextView
                     android:layout_weight="2"
                     android:layout_width="0dp"
-                    android:id="@+id/conversation"
+                    android:id="@+id/speak"
                     android:layout_height="match_parent"
-                    android:drawableBottom="@drawable/ic_conversation"
+                    android:drawableBottom="@drawable/ic_spk"
+                    android:paddingBottom="15dp"
                     />
                 <TextView
                     android:id="@+id/speech"
