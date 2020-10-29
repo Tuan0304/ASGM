@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    android:background="@android:color/background_light"
+    android:background="#54ADF6"
     android:weightSum="8"
     >
 
@@ -104,7 +104,7 @@
         android:layout_marginLeft="15dp"
         android:id="@+id/dkyemail"
         android:layout_marginBottom="15dp"
-        app:cardBackgroundColor="#212226"
+        app:cardBackgroundColor="@android:color/white"
         >
 
         <LinearLayout
@@ -217,7 +217,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="15dp"
         android:elevation="5dp"
-        app:cardBackgroundColor="#7289d9"
+        app:cardBackgroundColor="#5F63F5"
         app:cardCornerRadius="5dp"
         app:cardMaxElevation="5dp">
 

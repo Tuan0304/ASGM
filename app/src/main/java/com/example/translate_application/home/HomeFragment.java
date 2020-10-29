@@ -25,6 +25,7 @@ import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -58,23 +59,16 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
     boolean check =false;
-    TextView textView,editText,switchLang;
+    TextView textView,switchLang;
     SharedPreferences Mywords;
     String KeyWord,strIn,strOut,tentaikhoan;
     SharedPreferences MyAccount;
-
-
-
-
+    EditText editText;
     TextView camera;
     CustomAdapter Adapter;
     public static DatabaseHelper databaseHelper;
     ArrayList<TuVung> arrayList;
     SwipeMenuListView listView;
-
-
-
-
     @SuppressLint("ClickableViewAccessibility")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -120,12 +114,12 @@ public class HomeFragment extends Fragment {
         //end local key*/
 
         //hàm onclick dịch
-        editText.setOnClickListener(new View.OnClickListener() {
+      /* editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(),ThemActivity.class));
             }
-        });
+        });*/
         //end hàm onclick dịch
 
         //khai báo Spinner
@@ -680,8 +674,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (editText.length()>0) {
+                        TranslateAPI translateAPI = new TranslateAPI(
+                                strIn,
+                                strOut, editText.getText().toString());
+                        translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
+                            @Override
+                            public void onSuccess(String translatedText) {
+                                textView.setText(translatedText);
+                            }
 
-
+                            @Override
+                            public void onFailure(String ErrorText) {
+                                Log.d(TAG, "onFailure: "+ErrorText);
+                            }
+                        });
                 databaseHelper.Uploaddata("insert into TuVung values(null,'" + editText.getText().toString() +  "','" + textView.getText().toString() +  "','"+ tentaikhoan +"')");
                 getListView();
                 }else {
@@ -727,24 +733,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(editText.getText().toString().equals("")){
-                    Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
-                }else{
-                    TranslateAPI translateAPI = new TranslateAPI(
-                            strIn,
-                            strOut, editText.getText().toString());
 
-                    translateAPI.setTranslateListener(new TranslateAPI.TranslateListener() {
-                        @Override
-                        public void onSuccess(String translatedText) {
-                            textView.setText(translatedText);
-                        }
-
-                        @Override
-                        public void onFailure(String ErrorText) {
-                            Log.d(TAG, "onFailure: "+ErrorText);
-                        }
-                    }); }
                 }
             @Override
             public void afterTextChanged(Editable s) {
