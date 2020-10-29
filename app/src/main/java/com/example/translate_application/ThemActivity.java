@@ -75,8 +75,8 @@ public class ThemActivity extends AppCompatActivity {
         //end local key
 
         //database
-        databaseHelper = new DatabaseHelper(this,"Translate2.sqlite",null,1);
-        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(150),BanDich VARCHAR(250),TaiKhoan VARCHAR(50))");
+        databaseHelper = new DatabaseHelper(this,"Translate3.sqlite",null,1);
+        databaseHelper.QueryData("CREATE TABLE IF NOT EXISTS TuVung(Id INTEGER PRIMARY KEY AUTOINCREMENT, TuCanDich VARCHAR(500),BanDich VARCHAR(500),TaiKhoan VARCHAR(50))");
         //end database
 
         nhapVB.addTextChangedListener(new TextWatcher() {
