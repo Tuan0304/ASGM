@@ -658,7 +658,12 @@ public class HomeFragment extends Fragment {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CameraScan.class));
+                String putString=strIn;
+                String putStringout=strOut;
+                Intent i=new Intent(getActivity(),CameraScan.class);
+                i.putExtra("langin",putString);
+                i.putExtra("langout",putStringout);
+                startActivity(i);
             }
         });
         //end camera
