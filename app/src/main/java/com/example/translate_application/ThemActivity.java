@@ -12,6 +12,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -115,6 +117,8 @@ public class ThemActivity extends AppCompatActivity {
         btnclose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Animation zoom = AnimationUtils.loadAnimation(ThemActivity.this, R.anim.zoomin);
+                view.startAnimation(zoom);
                 nhapVB.setText("");
 
             }
@@ -124,6 +128,8 @@ public class ThemActivity extends AppCompatActivity {
             public void onClick(View v) {
               SharedPreferences.Editor myeditor = Mywords.edit();
               if (nhapVB.length()>0) {
+                  Animation zoom = AnimationUtils.loadAnimation(ThemActivity.this, R.anim.zoomin);
+                  v.startAnimation(zoom);
                   myeditor.putString("kw", nhapVB.getText().toString());
                   myeditor.commit();
 

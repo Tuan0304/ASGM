@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -51,6 +53,7 @@ import com.example.translate_application.ThemActivity;
 import com.example.translate_application.TranslateAPI;
 import com.example.translate_application.TuVung;
 import com.example.translate_application.VoiceActivity;
+import com.example.translate_application.dangdkyact;
 
 
 import java.util.ArrayList;
@@ -118,11 +121,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onInit(int i) {
                 if (i == TextToSpeech.SUCCESS){
-
-                    int result = mTTs.setLanguage(Locale.ENGLISH);
+                    int result = mTTs.setLanguage(Locale.UK);
+                   // int cns = mTTs.setLanguage(Locale.CHINA);
                     Log.d("fss","alooooooooo");
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
                         Toast.makeText(getActivity(), "Language not supported", Toast.LENGTH_SHORT).show();
+
                     }else {
                         speech.setEnabled(true);
                     }
@@ -134,6 +138,8 @@ public class HomeFragment extends Fragment {
         speech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Animation zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoomin);
+                view.startAnimation(zoom);
                 speak();
             }
         });
@@ -148,6 +154,8 @@ public class HomeFragment extends Fragment {
       editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Animation zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoomin);
+                view.startAnimation(zoom);
                 startActivity(new Intent(getActivity(),ThemActivity.class));
             }
         });
@@ -659,6 +667,8 @@ public class HomeFragment extends Fragment {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Animation zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoomin);
+                view.startAnimation(zoom);
                 startActivity(new Intent(getActivity(), CameraScan.class));
             }
         });
@@ -668,6 +678,8 @@ public class HomeFragment extends Fragment {
         voicebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Animation zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoomin);
+                v.startAnimation(zoom);
                 startActivity(new Intent(getActivity(), VoiceActivity.class));
             }
         });
@@ -679,6 +691,8 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 if (editText.length()>0) {
                         if(textView.length()>0){
+                            Animation zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoomin);
+                            v.startAnimation(zoom);
                             databaseHelper.Uploaddata("insert into TuVung values(null,'" + editText.getText().toString() +  "','" + textView.getText().toString() +  "','"+ tentaikhoan +"')");
                         }
                 getListView();
@@ -691,6 +705,8 @@ public class HomeFragment extends Fragment {
         eraseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Animation zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoomin);
+                v.startAnimation(zoom);
               editText.setText("");
               textView.setText("");
                 Mywords=getContext().getSharedPreferences("words",MODE_PRIVATE);
@@ -766,8 +782,6 @@ public class HomeFragment extends Fragment {
 
     private void speak(){
         String text = editText.getText().toString();
-
-
         mTTs.speak(text, TextToSpeech.QUEUE_FLUSH,null);
     }
 

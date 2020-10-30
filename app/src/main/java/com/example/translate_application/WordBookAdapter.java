@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.translate_application.wordbook.SaveWordBook;
+
 import java.util.ArrayList;
 import java.util.List;
 

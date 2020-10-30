@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity  {
     NetworkInfo WIFI,my3G;
     private AppBarConfiguration mAppBarConfiguration;
     ImageView logout;
+    TextView ten, email;
+    String edtten, edtEmail;
 
 
 
@@ -60,6 +62,16 @@ public class MainActivity extends AppCompatActivity  {
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
         logout = headerview.findViewById(R.id.logout2);
+        ten = headerview.findViewById(R.id.name);
+        email = headerview.findViewById(R.id.Email);
+        SharedPreferences preferences = getSharedPreferences("CusACCC",MODE_PRIVATE);
+        edtten =preferences.getString("pass","");
+         edtEmail=preferences.getString("id","");
+         ten.setText(edtten);
+         email.setText(edtEmail);
+
+
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
