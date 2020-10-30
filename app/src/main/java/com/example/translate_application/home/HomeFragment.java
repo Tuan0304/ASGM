@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
         textView = root.findViewById(R.id.result);
         ImageView translateButton = root.findViewById(R.id.resultbtn);
         ImageView eraseButton = root.findViewById(R.id.erase);
-        final ImageView voicebtn=root.findViewById(R.id.voice);
+        final TextView voicebtn=root.findViewById(R.id.voice);
         camera = root.findViewById(R.id.Camera);
         speech = root.findViewById(R.id.speak);
         listView = root.findViewById(R.id.historylist);
