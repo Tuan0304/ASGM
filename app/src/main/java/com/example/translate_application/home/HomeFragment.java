@@ -800,6 +800,7 @@ public class HomeFragment extends Fragment {
 
     }
 
+
     //hàm xổ listview Lich Sử
     public void getListView(){
         Cursor cursor = databaseHelper.GetData("SELECT * FROM TuVung where Taikhoan='"+tentaikhoan+"' ORDER BY Id DESC ");
