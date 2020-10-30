@@ -92,10 +92,9 @@ public class HomeFragment extends Fragment {
 
 //End đọc vb
         //ánh xạ
-
          strIn="auto";
          strOut="vi";
-         switchLang=root.findViewById(R.id.switchLang);
+        switchLang=root.findViewById(R.id.switchLang);
         editText = root.findViewById(R.id.editText);
         textView = root.findViewById(R.id.result);
         ImageView translateButton = root.findViewById(R.id.resultbtn);
@@ -113,15 +112,15 @@ public class HomeFragment extends Fragment {
         Adapter =  new CustomAdapter(getActivity(),R.layout.listtuvung_dont, arrayList);
         listView.setAdapter(Adapter);
         //end arraylist
+
         //đọc vb
         mTTs = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
                 if (i == TextToSpeech.SUCCESS){
-                    Log.d("fss","alooooooooo");
+
                     int result = mTTs.setLanguage(Locale.ENGLISH);
-                    int cns = mTTs.setLanguage(Locale.CHINA);
-                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED||cns == TextToSpeech.LANG_MISSING_DATA){
+                    if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
                         Toast.makeText(getActivity(), "Language not supported", Toast.LENGTH_SHORT).show();
                     }else {
                         speech.setEnabled(true);
@@ -766,8 +765,6 @@ public class HomeFragment extends Fragment {
 
     private void speak(){
         String text = editText.getText().toString();
-
-
         mTTs.speak(text, TextToSpeech.QUEUE_FLUSH,null);
     }
 
