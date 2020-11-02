@@ -1,4 +1,4 @@
-package com.example.translate_application;
+package com.example.translate_application.taikhoan;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,9 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import com.example.translate_application.MainActivity;
+import com.example.translate_application.R;
 
 public class Manhinhchao extends AppCompatActivity {
     SharedPreferences MyAccount;
@@ -37,7 +40,7 @@ public class Manhinhchao extends AppCompatActivity {
         //hàm tự đăng nhập nếu đã có login sẵn
         if(IDlogin!="" && PASSlogin!=""){
             finish();
-            Intent list=new Intent(Manhinhchao.this,MainActivity.class);
+            Intent list=new Intent(Manhinhchao.this, MainActivity.class);
             startActivity(list);
         }
         //end tự đăng nhập

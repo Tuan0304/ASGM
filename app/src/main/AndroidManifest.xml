@@ -17,18 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Wifichecked"/>
-        <activity android:name=".VoiceActivity" />
+        <activity android:name=".voice.VoiceActivity" />
         <activity
-            android:name=".ThemActivity"
+            android:name=".home.ThemActivity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".CameraScan" />
-        <activity android:name=".DangNhap" />
-        <activity android:name=".dangdkyact" />
+        <activity android:name=".camera.CameraScan" />
+        <activity android:name=".taikhoan.DangNhap" />
+        <activity android:name=".taikhoan.dangdkyact" />
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing"
             />
         <activity
-            android:name=".Manhinhchao"
+            android:name=".taikhoan.Manhinhchao"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing">

@@ -1,37 +1,26 @@
 package com.example.translate_application.home;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,16 +33,13 @@ import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.example.translate_application.CameraScan;
-import com.example.translate_application.CustomAdapter;
+import com.example.translate_application.camera.CameraScan;
+import com.example.translate_application.lichsu.CustomAdapter;
 import com.example.translate_application.DatabaseHelper;
-import com.example.translate_application.Language;
 import com.example.translate_application.R;
-import com.example.translate_application.ThemActivity;
-import com.example.translate_application.TranslateAPI;
-import com.example.translate_application.TuVung;
-import com.example.translate_application.VoiceActivity;
-import com.example.translate_application.dangdkyact;
+import com.example.translate_application.translateapi.TranslateAPI;
+import com.example.translate_application.lichsu.TuVung;
+import com.example.translate_application.voice.VoiceActivity;
 
 
 import java.util.ArrayList;
@@ -609,8 +595,6 @@ public class HomeFragment extends Fragment {
         //Switch spinner
         spinnerIn.setSelection(0);
         spinnerOut.setSelection(61);
-
-
         switchLang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -623,8 +607,6 @@ public class HomeFragment extends Fragment {
 //                }
                 int spn1 = spinnerIn.getSelectedItemPosition();
                 int spn2 = spinnerOut.getSelectedItemPosition();
-
-
                     if(!em.equals(strIn)) {
                         em = strIn;
                         strIn = strOut;

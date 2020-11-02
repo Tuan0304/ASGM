@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_wordbook"
-        android:name="com.example.translate_application.wordbook.WordBookFragment"
+        android:name="com.example.translate_application.tuvung.WordBookFragment"
         android:label="@string/menu_wordbook"
         tools:layout="@layout/fragment_wordbook" />
 
@@ -24,17 +24,17 @@
         tools:layout="@layout/fragment_voice" />
     <fragment
         android:id="@+id/nav_offline"
-        android:name="com.example.translate_application.transoffline.OfflineFragment"
+        android:name="com.example.translate_application.lichsu.OfflineFragment"
         android:label="@string/menu_offline"
         tools:layout="@layout/fragment_offline" />
     <fragment
         android:id="@+id/nav_setting"
-        android:name="com.example.translate_application.setting.SettingFragment"
+        android:name="com.example.translate_application.translateapi.SettingFragment"
         android:label="@string/menu_setting"
         tools:layout="@layout/fragment_setting" />
     <fragment
         android:id="@+id/nav_help"
-        android:name="com.example.translate_application.help.HelpFragment"
+        android:name="com.example.translate_application.camera.HelpFragment"
         android:label="@string/menu_help"
         tools:layout="@layout/fragment_help" />
 </navigation>

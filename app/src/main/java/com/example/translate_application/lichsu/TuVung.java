@@ -1,4 +1,4 @@
-package com.example.translate_application;
+package com.example.translate_application.lichsu;
 
 public class TuVung {
     public int Id;

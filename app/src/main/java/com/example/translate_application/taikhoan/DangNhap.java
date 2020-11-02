@@ -1,4 +1,4 @@
-package com.example.translate_application;
+package com.example.translate_application.taikhoan;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +17,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import com.example.translate_application.DatabaseHelper;
+import com.example.translate_application.MainActivity;
+import com.example.translate_application.R;
 
 public class DangNhap extends AppCompatActivity {
     DatabaseHelper databaseHelper;

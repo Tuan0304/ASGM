@@ -1,4 +1,4 @@
-package com.example.translate_application.wordbook;
+package com.example.translate_application.tuvung;
 
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -21,7 +21,6 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.translate_application.DatabaseHelper;
 import com.example.translate_application.R;
-import com.example.translate_application.WordBookAdapter;
 
 import java.util.ArrayList;
 

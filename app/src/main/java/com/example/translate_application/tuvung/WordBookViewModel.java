@@ -1,16 +1,17 @@
-package com.example.translate_application.transoffline;
+package com.example.translate_application.tuvung;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class OfflineViewModel extends ViewModel {
+public class WordBookViewModel extends ViewModel {
     private MutableLiveData<String> mText;
-    public OfflineViewModel(){
+    public WordBookViewModel(){
         mText = new MutableLiveData<>();
-        mText.setValue("This is Voice Fragment");
+        mText.setValue("This is WordBook fragment");
     }
-    public LiveData<String> getText() {
+
+    public LiveData<String> getText(){
         return mText;
     }
 }

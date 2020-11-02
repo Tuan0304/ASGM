@@ -1,4 +1,4 @@
-package com.example.translate_application;
+package com.example.translate_application.translateapi;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;

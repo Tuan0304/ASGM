@@ -1,4 +1,4 @@
-package com.example.translate_application;
+package com.example.translate_application.translateapi;
 
 /**
  * Created by hello on 16-Aug-18.

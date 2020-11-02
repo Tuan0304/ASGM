@@ -1,4 +1,4 @@
-package com.example.translate_application;
+package com.example.translate_application.lichsu;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.translate_application.R;
+import com.example.translate_application.lichsu.TuVung;
 
 import java.util.ArrayList;
 

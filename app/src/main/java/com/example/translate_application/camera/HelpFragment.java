@@ -1,4 +1,4 @@
-package com.example.translate_application.transoffline;
+package com.example.translate_application.camera;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,14 +10,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.translate_application.R;
 
-public class OfflineFragment extends Fragment {
+public class HelpFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_offline, container, false);
+        View root = inflater.inflate(R.layout.fragment_help, container, false);
 
 
         return root;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.translate_application.wordbook;
+package com.example.translate_application.tuvung;
 
 public class SaveWordBook {
     public int IdTuVung;

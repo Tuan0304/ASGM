@@ -1,4 +1,4 @@
-package com.example.translate_application;
+package com.example.translate_application.voice;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +14,14 @@ import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.translate_application.DatabaseHelper;
+import com.example.translate_application.R;
+import com.example.translate_application.translateapi.Language;
 import com.sembozdemir.speechorbview.library.SpeechOrbView;
 
 import java.util.ArrayList;
@@ -53,7 +55,7 @@ public class VoiceActivity extends AppCompatActivity {
 
         final Intent speechRecognizerIntent= new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Language.JAPANESE);
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Language.JAPANESE);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Language.VIETNAMESE);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Language.CHINESE);
         speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,Language.GERMAN);

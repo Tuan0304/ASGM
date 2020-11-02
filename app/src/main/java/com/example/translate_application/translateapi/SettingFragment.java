@@ -1,4 +1,4 @@
-package com.example.translate_application.setting;
+package com.example.translate_application.translateapi;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

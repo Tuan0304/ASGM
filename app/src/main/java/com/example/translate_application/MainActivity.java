@@ -6,31 +6,15 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.speech.RecognitionListener;
-import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Menu;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.translate_application.voice.VoiceFragment;
-import com.example.translate_application.wordbook.WordBookFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.menu.ShowableListMenu;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -40,6 +24,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.example.translate_application.taikhoan.Manhinhchao;
 
 public class MainActivity extends AppCompatActivity  {
     ConnectivityManager connectivityManager;
@@ -138,7 +124,7 @@ public class MainActivity extends AppCompatActivity  {
                     editor.clear();
                     editor.apply();
                     finish();
-                    Intent list=new Intent(MainActivity.this,Manhinhchao.class);
+                    Intent list=new Intent(MainActivity.this, Manhinhchao.class);
                     startActivity(list);
 
 
