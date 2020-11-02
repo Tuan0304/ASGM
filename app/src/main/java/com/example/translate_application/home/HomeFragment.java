@@ -66,10 +66,12 @@ public class HomeFragment extends Fragment {
     boolean check =false;
     TextView textView,switchLang;
     SharedPreferences Mywords;
-    String KeyWord,strIn,strOut,tentaikhoan;
+    String KeyWord,strIn,strOut,tentaikhoan,em,temp;
     SharedPreferences MyAccount;
     TextView editText;
     TextView camera;
+    int langcheck = 1 ;
+
     TextView speech;
     CustomAdapter Adapter;
     TextToSpeech mTTs;
@@ -97,6 +99,7 @@ public class HomeFragment extends Fragment {
         //ánh xạ
          strIn="auto";
          strOut="vi";
+         em = "";
         switchLang=root.findViewById(R.id.switchLang);
         editText = root.findViewById(R.id.editText);
         textView = root.findViewById(R.id.result);
@@ -108,6 +111,7 @@ public class HomeFragment extends Fragment {
         listView = root.findViewById(R.id.historylist);
         final Spinner spinnerIn = (Spinner) root.findViewById(R.id.spinnerin);
         final Spinner spinnerOut = (Spinner) root.findViewById(R.id.spinnerout);
+
         //end ánh xạ
 
         //khai báo arraylist
@@ -167,8 +171,8 @@ public class HomeFragment extends Fragment {
         List<String> categories2 = new ArrayList<String>();categories2.add("VIETNAMESE");categories2.add("AFRIKAANS");categories2.add("ALBANIAN");categories2.add("ARABIC");categories2.add("ARMENIAN");categories2.add("AZERBAIJANI");categories2.add("BASQUE");categories2.add("BELARUSIAN");categories2.add("BENGALI");categories2.add("BULGARIAN");categories2.add("CATALAN");categories2.add("CHINESE");categories2.add("CROATIAN");categories2.add("CZECH");categories2.add("DANISH");categories2.add("DUTCH");categories2.add("ENGLISH");categories2.add("ESTONIAN");categories2.add("FILIPINO");categories2.add("FINNISH");categories2.add("FRENCH");categories2.add("GALICIAN");categories2.add("GEORGIAN");categories2.add("GERMAN");categories2.add("GREEK");categories2.add("GUJARATI");categories2.add("HAITIAN_CREOLE");categories2.add("HEBREW");categories2.add("HINDI");categories2.add("HUNGARIAN");categories2.add("ICELANDIC");categories2.add("INDONESIAN");categories2.add("IRISH");categories2.add("ITALIAN");categories2.add("JAPANESE");categories2.add("KANNADA");categories2.add("KOREAN");categories2.add("LATIN");categories2.add("LATVIAN");categories2.add("LITHUANIAN");categories2.add("MACEDONIAN");categories2.add("MALAY");categories2.add("MALTESE");categories2.add("NORWEGIAN");categories2.add("PERSIAN");categories2.add("POLISH");categories2.add("PORTUGUESE");categories2.add("ROMANIAN");categories2.add("RUSSIAN");categories2.add("SERBIAN");categories2.add("SLOVAK");categories2.add("SLOVENIAN");categories2.add("SPANISH");categories2.add("SWAHILI");categories2.add("SWEDISH");categories2.add("TAMIL");categories2.add("TELUGU");categories2.add("THAI");categories2.add("TURKISH");categories2.add("UKRAINIAN");categories2.add("URDU");categories2.add("VIETNAMESE");categories2.add("WELSH");categories2.add("YIDDISH");categories2.add("CHINESE_SIMPLIFIED");categories2.add("CHINESE_TRADITIONAL");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_text, categories);
-        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(getActivity(),R.layout.spinner_text, categories2);
+        final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_text, categories);
+        final ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(getActivity(),R.layout.spinner_text, categories2);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         dataAdapter2.setDropDownViewResource(R.layout.simple_spinner_dropdown);
@@ -602,6 +606,39 @@ public class HomeFragment extends Fragment {
             }
         });
         //end khai báo spinner
+        //Switch spinner
+       // Toast.makeText(getActivity(), strOut, Toast.LENGTH_SHORT).show();
+        switchLang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoomin);
+                v.startAnimation(zoom);
+                int spn1 = spinnerOut.getSelectedItemPosition();
+                int spn2 = spinnerIn.getSelectedItemPosition();
+
+
+if(!em.equals(strIn)) {
+    em = strIn;
+    strIn = strOut;
+    strOut = em;
+
+}
+
+
+                Toast.makeText(getActivity(), strIn + strOut, Toast.LENGTH_LONG).show();
+//                if (spinnerIn.getAdapter().equals(dataAdapter)) {
+//                    spinnerIn.setAdapter(dataAdapter2);
+//                    spinnerOut.setAdapter(dataAdapter);
+//
+//                }else {
+//                    spinnerIn.setAdapter(dataAdapter);
+//                    spinnerOut.setAdapter(dataAdapter2);
+//                }
+//                spinnerIn.setSelection(spn2);
+//                spinnerOut.setSelection(spn1);
+
+            }
+        });
 
         // swipe trên listview
         listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
@@ -744,7 +781,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(editText.getText().toString().equals("")){
-                    Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
                 }else{
                     TranslateAPI translateAPI = new TranslateAPI(
                             strIn,
@@ -818,6 +855,8 @@ public class HomeFragment extends Fragment {
         Adapter.notifyDataSetChanged();
     }
     //end hàm xổ listview Lịch Sử
+
+
 
 
 }
