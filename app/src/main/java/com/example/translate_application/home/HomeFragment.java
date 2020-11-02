@@ -97,8 +97,8 @@ public class HomeFragment extends Fragment {
 
 //End đọc vb
         //ánh xạ
-         strIn="auto";
-         strOut="vi";
+         //strIn="auto";
+        //strOut="vi";
          em = "";
         switchLang=root.findViewById(R.id.switchLang);
         editText = root.findViewById(R.id.editText);
@@ -168,7 +168,7 @@ public class HomeFragment extends Fragment {
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();categories.add("AUTO DETECT");categories.add("AFRIKAANS");categories.add("ALBANIAN");categories.add("ARABIC");categories.add("ARMENIAN");categories.add("AZERBAIJANI");categories.add("BASQUE");categories.add("BELARUSIAN");categories.add("BENGALI");categories.add("BULGARIAN");categories.add("CATALAN");categories.add("CHINESE");categories.add("CROATIAN");categories.add("CZECH");categories.add("DANISH");categories.add("DUTCH");categories.add("ENGLISH");categories.add("ESTONIAN");categories.add("FILIPINO");categories.add("FINNISH");categories.add("FRENCH");categories.add("GALICIAN");categories.add("GEORGIAN");categories.add("GERMAN");categories.add("GREEK");categories.add("GUJARATI");categories.add("HAITIAN_CREOLE");categories.add("HEBREW");categories.add("HINDI");categories.add("HUNGARIAN");categories.add("ICELANDIC");categories.add("INDONESIAN");categories.add("IRISH");categories.add("ITALIAN");categories.add("JAPANESE");categories.add("KANNADA");categories.add("KOREAN");categories.add("LATIN");categories.add("LATVIAN");categories.add("LITHUANIAN");categories.add("MACEDONIAN");categories.add("MALAY");categories.add("MALTESE");categories.add("NORWEGIAN");categories.add("PERSIAN");categories.add("POLISH");categories.add("PORTUGUESE");categories.add("ROMANIAN");categories.add("RUSSIAN");categories.add("SERBIAN");categories.add("SLOVAK");categories.add("SLOVENIAN");categories.add("SPANISH");categories.add("SWAHILI");categories.add("SWEDISH");categories.add("TAMIL");categories.add("TELUGU");categories.add("THAI");categories.add("TURKISH");categories.add("UKRAINIAN");categories.add("URDU");categories.add("VIETNAMESE");categories.add("WELSH");categories.add("YIDDISH");categories.add("CHINESE_SIMPLIFIED");categories.add("CHINESE_TRADITIONAL");
-        List<String> categories2 = new ArrayList<String>();categories2.add("VIETNAMESE");categories2.add("AFRIKAANS");categories2.add("ALBANIAN");categories2.add("ARABIC");categories2.add("ARMENIAN");categories2.add("AZERBAIJANI");categories2.add("BASQUE");categories2.add("BELARUSIAN");categories2.add("BENGALI");categories2.add("BULGARIAN");categories2.add("CATALAN");categories2.add("CHINESE");categories2.add("CROATIAN");categories2.add("CZECH");categories2.add("DANISH");categories2.add("DUTCH");categories2.add("ENGLISH");categories2.add("ESTONIAN");categories2.add("FILIPINO");categories2.add("FINNISH");categories2.add("FRENCH");categories2.add("GALICIAN");categories2.add("GEORGIAN");categories2.add("GERMAN");categories2.add("GREEK");categories2.add("GUJARATI");categories2.add("HAITIAN_CREOLE");categories2.add("HEBREW");categories2.add("HINDI");categories2.add("HUNGARIAN");categories2.add("ICELANDIC");categories2.add("INDONESIAN");categories2.add("IRISH");categories2.add("ITALIAN");categories2.add("JAPANESE");categories2.add("KANNADA");categories2.add("KOREAN");categories2.add("LATIN");categories2.add("LATVIAN");categories2.add("LITHUANIAN");categories2.add("MACEDONIAN");categories2.add("MALAY");categories2.add("MALTESE");categories2.add("NORWEGIAN");categories2.add("PERSIAN");categories2.add("POLISH");categories2.add("PORTUGUESE");categories2.add("ROMANIAN");categories2.add("RUSSIAN");categories2.add("SERBIAN");categories2.add("SLOVAK");categories2.add("SLOVENIAN");categories2.add("SPANISH");categories2.add("SWAHILI");categories2.add("SWEDISH");categories2.add("TAMIL");categories2.add("TELUGU");categories2.add("THAI");categories2.add("TURKISH");categories2.add("UKRAINIAN");categories2.add("URDU");categories2.add("VIETNAMESE");categories2.add("WELSH");categories2.add("YIDDISH");categories2.add("CHINESE_SIMPLIFIED");categories2.add("CHINESE_TRADITIONAL");
+        List<String> categories2 = new ArrayList<String>();categories2.add("ENGLISH");categories2.add("AFRIKAANS");categories2.add("ALBANIAN");categories2.add("ARABIC");categories2.add("ARMENIAN");categories2.add("AZERBAIJANI");categories2.add("BASQUE");categories2.add("BELARUSIAN");categories2.add("BENGALI");categories2.add("BULGARIAN");categories2.add("CATALAN");categories2.add("CHINESE");categories2.add("CROATIAN");categories2.add("CZECH");categories2.add("DANISH");categories2.add("DUTCH");categories2.add("ENGLISH");categories2.add("ESTONIAN");categories2.add("FILIPINO");categories2.add("FINNISH");categories2.add("FRENCH");categories2.add("GALICIAN");categories2.add("GEORGIAN");categories2.add("GERMAN");categories2.add("GREEK");categories2.add("GUJARATI");categories2.add("HAITIAN_CREOLE");categories2.add("HEBREW");categories2.add("HINDI");categories2.add("HUNGARIAN");categories2.add("ICELANDIC");categories2.add("INDONESIAN");categories2.add("IRISH");categories2.add("ITALIAN");categories2.add("JAPANESE");categories2.add("KANNADA");categories2.add("KOREAN");categories2.add("LATIN");categories2.add("LATVIAN");categories2.add("LITHUANIAN");categories2.add("MACEDONIAN");categories2.add("MALAY");categories2.add("MALTESE");categories2.add("NORWEGIAN");categories2.add("PERSIAN");categories2.add("POLISH");categories2.add("PORTUGUESE");categories2.add("ROMANIAN");categories2.add("RUSSIAN");categories2.add("SERBIAN");categories2.add("SLOVAK");categories2.add("SLOVENIAN");categories2.add("SPANISH");categories2.add("SWAHILI");categories2.add("SWEDISH");categories2.add("TAMIL");categories2.add("TELUGU");categories2.add("THAI");categories2.add("TURKISH");categories2.add("UKRAINIAN");categories2.add("URDU");categories2.add("VIETNAMESE");categories2.add("WELSH");categories2.add("YIDDISH");categories2.add("CHINESE_SIMPLIFIED");categories2.add("CHINESE_TRADITIONAL");
 
         // Creating adapter for spinner
         final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_text, categories);
@@ -401,7 +401,7 @@ public class HomeFragment extends Fragment {
                 // On selecting a spinner item
                 switch (position) {
                     case 0:
-                        strOut = "vi";
+                        strOut = "auto";
                         break;
                     case 1:
                         strOut = "af";
@@ -584,7 +584,7 @@ public class HomeFragment extends Fragment {
                         strOut= "ur";
                         break;
                     case 61:
-                        strOut= "vi2";
+                        strOut= "vi";
                         break;
                     case 62:
                         strOut= "cy";
@@ -607,36 +607,32 @@ public class HomeFragment extends Fragment {
         });
         //end khai báo spinner
         //Switch spinner
-       // Toast.makeText(getActivity(), strOut, Toast.LENGTH_SHORT).show();
+        spinnerIn.setSelection(0);
+        spinnerOut.setSelection(61);
+
+
         switchLang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Animation zoom = AnimationUtils.loadAnimation(getActivity(), R.anim.zoomin);
                 v.startAnimation(zoom);
-                int spn1 = spinnerOut.getSelectedItemPosition();
-                int spn2 = spinnerIn.getSelectedItemPosition();
-
-
-if(!em.equals(strIn)) {
-    em = strIn;
-    strIn = strOut;
-    strOut = em;
-
-}
-
-
-                Toast.makeText(getActivity(), strIn + strOut, Toast.LENGTH_LONG).show();
-//                if (spinnerIn.getAdapter().equals(dataAdapter)) {
-//                    spinnerIn.setAdapter(dataAdapter2);
-//                    spinnerOut.setAdapter(dataAdapter);
-//
-//                }else {
-//                    spinnerIn.setAdapter(dataAdapter);
-//                    spinnerOut.setAdapter(dataAdapter2);
+//                if(strIn.equals("auto")){
+//                    switchLang.setEnabled(false);
+//                }else{
+//                    switchLang.setEnabled(true);
 //                }
-//                spinnerIn.setSelection(spn2);
-//                spinnerOut.setSelection(spn1);
+                int spn1 = spinnerIn.getSelectedItemPosition();
+                int spn2 = spinnerOut.getSelectedItemPosition();
 
+
+                    if(!em.equals(strIn)) {
+                        em = strIn;
+                        strIn = strOut;
+                        strOut = em;
+                    }
+                Toast.makeText(getActivity(), strIn+strOut, Toast.LENGTH_SHORT).show();
+                    spinnerIn.setSelection(spn2);
+                    spinnerOut.setSelection(spn1);
             }
         });
 

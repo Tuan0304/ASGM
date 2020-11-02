@@ -37,7 +37,6 @@ public class CameraScan extends AppCompatActivity {
         {
             strIn=(String) b.get("langin");
             strOut=(String) b.get("langout");
-
         }
         Toast.makeText(this, strIn, Toast.LENGTH_SHORT).show();
 
