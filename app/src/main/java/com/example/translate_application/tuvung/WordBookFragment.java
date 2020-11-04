@@ -134,7 +134,6 @@ int index=1;
                         cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2)
-
                 ));
             }
         }
