@@ -65,7 +65,7 @@ public class WordBookAdapter extends BaseAdapter {
         }
         SaveWordBook saveWordBook = List.get(i);
         holder.txtLuutuCanDich.setText(saveWordBook.getLuuTuVung());
-        holder.TxtLuuBanDich.setText(saveWordBook.getLuuTuVung());
+        holder.TxtLuuBanDich.setText(saveWordBook.getLuuBanDich());
         Log.d(TAG, "getView: aa");
         holder.imguncheck.setOnClickListener(new View.OnClickListener() {
             @Override
